@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dse
+Bundle-SymbolicName: hu.bme.mit.inf.cps.dse;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.incquery.runtime,
+ hu.bme.mit.inf.cps,
+ hu.bme.mit.inf.cps.patterns,
+ org.eclipse.viatra.dse.api,
+ hu.bme.mit.inf.cps.rdf
+Export-Package: hu.bme.mit.inf.cps.rules,
+ hu.bme.mit.inf.cps.statecoder
+Bundle-ActivationPolicy: lazy

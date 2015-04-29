@@ -1,0 +1,23 @@
+package hu.bme.mit.inf.cps.patterns
+
+import "http://cps/1.0"
+
+//@QueryBasedFeature
+//pattern applications(model : CyberPhysicalSystem, app : ApplicationInstance) {
+//	CyberPhysicalSystem.applicationTypes.instances(model, app);
+//}
+//
+//@QueryBasedFeature
+//pattern hosts(model : CyberPhysicalSystem, host : HostInstance) {
+//	CyberPhysicalSystem.hostTypes.instances(model, host);
+//}
+
+/*@QueryBasedFeature(feature = "cps", source = host, target = model)
+pattern hostCps(model : CyberPhysicalSystem, host : HostType) {
+	CyberPhysicalSystem.hostTypes(model, host);
+}*/
+
+/*@QueryBasedFeature(feature = "cps", source = app, target = model)
+pattern appCps(model : CyberPhysicalSystem, app : ApplicationType) {
+	CyberPhysicalSystem.applicationTypes(model, app);
+}*/

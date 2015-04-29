@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Cyber Physical System Rest
+Bundle-SymbolicName: hu.bme.mit.inf.cps.rest;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework;version="1.6.0"
+Service-Component: OSGI-INF/component.xml
+JPA-PersistenceUnits: osgi.demo.jpa
+Require-Bundle: org.eclipse.equinox.app,
+ com.sun.jersey.jersey-core;bundle-version="1.11.0",
+ hu.bme.mit.inf.cps.rdf,
+ hu.bme.mit.inf.cps.xml;bundle-version="1.0.0",
+ hu.bme.mit.inf.cps.patterns;bundle-version="0.0.1",
+ hu.bme.mit.inf.cps.dse;bundle-version="1.0.0",
+ hu.bme.mit.inf.cps;bundle-version="1.0.0",
+ com.googlecode.json-simple;bundle-version="1.1.1",
+ com.google.guava
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Rest Product" id="hu.bme.mit.inf.cps.rest.product" application="hu.bme.mit.inf.cps.rest.RestApplication" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consoleLog -console
+      </programArgs>
+      <vmArgs>-Declipse.ignoreApp=true -Dosgi.noShutdown=true -Dorg.osgi.service.http.port=8070
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="com.eclipsesource.jaxrs.connector"/>
+      <plugin id="com.google.guava"/>
+      <plugin id="com.google.inject"/>
+      <plugin id="com.googlecode.json-simple"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="com.mysql.jdbc"/>
+      <plugin id="com.sun.jersey.jersey-core"/>
+      <plugin id="com.sun.jersey.jersey-server"/>
+      <plugin id="com.sun.jersey.jersey-servlet"/>
+      <plugin id="hu.bme.mit.inf.cps"/>
+      <plugin id="hu.bme.mit.inf.cps.cep"/>
+      <plugin id="hu.bme.mit.inf.cps.dse"/>
+      <plugin id="hu.bme.mit.inf.cps.patterns"/>
+      <plugin id="hu.bme.mit.inf.cps.problem"/>
+      <plugin id="hu.bme.mit.inf.cps.rdf"/>
+      <plugin id="hu.bme.mit.inf.cps.rest"/>
+      <plugin id="hu.bme.mit.inf.cps.sql"/>
+      <plugin id="hu.bme.mit.inf.cps.trigger"/>
+      <plugin id="hu.bme.mit.inf.cps.xml"/>
+      <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
+      <plugin id="javax.servlet"/>
+      <plugin id="javax.xml"/>
+      <plugin id="org.antlr.runtime"/>
+      <plugin id="org.apache.batik.css"/>
+      <plugin id="org.apache.batik.util"/>
+      <plugin id="org.apache.batik.util.gui"/>
+      <plugin id="org.apache.commons.codec"/>
+      <plugin id="org.apache.commons.httpclient"/>
+      <plugin id="org.apache.commons.lang"/>
+      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.apache.felix.gogo.runtime"/>
+      <plugin id="org.apache.felix.gogo.shell"/>
+      <plugin id="org.apache.log4j"/>
+      <plugin id="org.eclipse.ant.core"/>
+      <plugin id="org.eclipse.compare.core"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.databinding.beans"/>
+      <plugin id="org.eclipse.core.databinding.observable"/>
+      <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.filebuffers"/>
+      <plugin id="org.eclipse.core.filesystem"/>
+      <plugin id="org.eclipse.core.filesystem.java7" fragment="true"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.resources"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.debug.core"/>
+      <plugin id="org.eclipse.e4.core.commands"/>
+      <plugin id="org.eclipse.e4.core.contexts"/>
+      <plugin id="org.eclipse.e4.core.di"/>
+      <plugin id="org.eclipse.e4.core.di.extensions"/>
+      <plugin id="org.eclipse.e4.core.services"/>
+      <plugin id="org.eclipse.emf.cdo.ecore.retrofit" fragment="true"/>
+      <plugin id="org.eclipse.emf.codegen"/>
+      <plugin id="org.eclipse.emf.codegen.ecore"/>
+      <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.change"/>
+      <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.edit"/>
+      <plugin id="org.eclipse.emf.transaction"/>
+      <plugin id="org.eclipse.emf.validation"/>
+      <plugin id="org.eclipse.emf.workspace"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.bidi"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.console"/>
+      <plugin id="org.eclipse.equinox.ds"/>
+      <plugin id="org.eclipse.equinox.frameworkadmin"/>
+      <plugin id="org.eclipse.equinox.frameworkadmin.equinox"/>
+      <plugin id="org.eclipse.equinox.http.jetty"/>
+      <plugin id="org.eclipse.equinox.http.servlet"/>
+      <plugin id="org.eclipse.equinox.p2.artifact.repository"/>
+      <plugin id="org.eclipse.equinox.p2.core"/>
+      <plugin id="org.eclipse.equinox.p2.director"/>
+      <plugin id="org.eclipse.equinox.p2.director.app"/>
+      <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.garbagecollector"/>
+      <plugin id="org.eclipse.equinox.p2.jarprocessor"/>
+      <plugin id="org.eclipse.equinox.p2.metadata"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+      <plugin id="org.eclipse.equinox.p2.publisher"/>
+      <plugin id="org.eclipse.equinox.p2.publisher.eclipse"/>
+      <plugin id="org.eclipse.equinox.p2.repository"/>
+      <plugin id="org.eclipse.equinox.p2.repository.tools"/>
+      <plugin id="org.eclipse.equinox.p2.touchpoint.eclipse"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.security"/>
+      <plugin id="org.eclipse.equinox.simpleconfigurator"/>
+      <plugin id="org.eclipse.equinox.simpleconfigurator.manipulator"/>
+      <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.incquery.patternlanguage"/>
+      <plugin id="org.eclipse.incquery.patternlanguage.emf"/>
+      <plugin id="org.eclipse.incquery.querybasedfeatures.runtime"/>
+      <plugin id="org.eclipse.incquery.runtime"/>
+      <plugin id="org.eclipse.incquery.runtime.base"/>
+      <plugin id="org.eclipse.incquery.runtime.base.itc"/>
+      <plugin id="org.eclipse.incquery.runtime.evm"/>
+      <plugin id="org.eclipse.incquery.runtime.matchers"/>
+      <plugin id="org.eclipse.incquery.runtime.rete"/>
+      <plugin id="org.eclipse.incquery.runtime.rete.recipes"/>
+      <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
+      <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
+      <plugin id="org.eclipse.jdt.core"/>
+      <plugin id="org.eclipse.jdt.debug"/>
+      <plugin id="org.eclipse.jdt.launching"/>
+      <plugin id="org.eclipse.jetty.continuation"/>
+      <plugin id="org.eclipse.jetty.http"/>
+      <plugin id="org.eclipse.jetty.io"/>
+      <plugin id="org.eclipse.jetty.security"/>
+      <plugin id="org.eclipse.jetty.server"/>
+      <plugin id="org.eclipse.jetty.servlet"/>
+      <plugin id="org.eclipse.jetty.util"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.pde"/>
+      <plugin id="org.eclipse.pde.build"/>
+      <plugin id="org.eclipse.pde.core"/>
+      <plugin id="org.eclipse.persistence.jpa.equinox.weaving" fragment="true"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.team.core"/>
+      <plugin id="org.eclipse.text"/>
+      <plugin id="org.eclipse.update.configurator"/>
+      <plugin id="org.eclipse.viatra.cep.core"/>
+      <plugin id="org.eclipse.viatra.cep.core.metamodels"/>
+      <plugin id="org.eclipse.viatra.cep.vepl"/>
+      <plugin id="org.eclipse.viatra.dse.api"/>
+      <plugin id="org.eclipse.viatra.dse.base"/>
+      <plugin id="org.eclipse.viatra.dse.dependencygraph"/>
+      <plugin id="org.eclipse.viatra.dse.designspace"/>
+      <plugin id="org.eclipse.viatra.dse.designspace.pathfinding"/>
+      <plugin id="org.eclipse.viatra.dse.emfdesignspace.model"/>
+      <plugin id="org.eclipse.viatra.dse.emfdesignspace.patterns"/>
+      <plugin id="org.eclipse.viatra.dse.genetic"/>
+      <plugin id="org.eclipse.viatra.dse.monitor"/>
+      <plugin id="org.eclipse.viatra.emf.runtime"/>
+      <plugin id="org.eclipse.xtend.lib"/>
+      <plugin id="org.eclipse.xtend.lib.macro"/>
+      <plugin id="org.eclipse.xtext"/>
+      <plugin id="org.eclipse.xtext.common.types"/>
+      <plugin id="org.eclipse.xtext.logging" fragment="true"/>
+      <plugin id="org.eclipse.xtext.util"/>
+      <plugin id="org.eclipse.xtext.xbase"/>
+      <plugin id="org.eclipse.xtext.xbase.lib"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.junit"/>
+      <plugin id="org.objectweb.asm"/>
+      <plugin id="org.sat4j.core"/>
+      <plugin id="org.sat4j.pb"/>
+      <plugin id="org.w3c.css.sac"/>
+      <plugin id="org.w3c.dom.events"/>
+      <plugin id="org.w3c.dom.smil"/>
+      <plugin id="org.w3c.dom.svg"/>
+      <plugin id="slf4j.api"/>
+      <plugin id="slf4j.log4j12" fragment="true"/>
+   </plugins>
+
+   <configurations>
+      <plugin id="com.sun.jersey.jersey-core" autoStart="true" startLevel="0" />
+      <plugin id="com.sun.jersey.jersey-server" autoStart="true" startLevel="0" />
+      <plugin id="com.sun.jersey.jersey-servlet" autoStart="true" startLevel="0" />
+      <plugin id="javax.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.continuation" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.http" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.io" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.security" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.server" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.util" autoStart="true" startLevel="0" />
+      <property name="dispatcher" value="http://localhost:8080/Dispatcher/Dispatcher" />
+      <property name="rdf" value="http://localhost:5820/sisro/query" />
+      <property name="rdf_pass" value="v3LCWo5k" />
+      <property name="rdf_user" value="cps-ro" />
+      <property name="sql" value="localhost" />
+      <property name="sql_pass" value="cps" />
+      <property name="sql_user" value="cps" />
+   </configurations>
+
+</product>

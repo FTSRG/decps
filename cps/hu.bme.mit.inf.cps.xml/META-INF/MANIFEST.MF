@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Cyber Physical System Xml
+Bundle-SymbolicName: hu.bme.mit.inf.cps.xml
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: hu.bme.mit.inf.cps,
+ hu.bme.mit.inf.cps.patterns;bundle-version="0.0.1",
+ hu.bme.mit.inf.cps.dse;bundle-version="1.0.0",
+ hu.bme.mit.inf.cps.rdf;bundle-version="1.0.0",
+ org.eclipse.xtend.lib,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.viatra.dse.api,
+ org.eclipse.incquery.runtime,
+ org.eclipse.viatra.dse.base,
+ org.junit,
+ hu.bme.mit.inf.cps.problem;bundle-version="1.0.0"
+Service-Component: OSGi-INF/component.xml
+Export-Package: hu.bme.mit.inf.cps.xml,
+ hu.bme.mit.inf.cps.xml.provided
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.log4j

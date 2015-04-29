@@ -1,0 +1,41 @@
+package hu.bme.mit.inf.cps.cep.vepl
+
+import hu.bme.mit.inf.cps.*
+import hu.bme.mit.inf.cps.xml.*
+import-queries hu.bme.mit.inf.cps.patterns.*
+
+QueryResultChangeEvent maxAnyUsageAppeared(id: String){
+	query: maxAnyUsage(id,_,_)
+	resultChangeType: NEW_MATCH_FOUND
+}
+
+ComplexEvent maxAnyUsageAppeared1000TimesIn3SecWithSameId(id: String){
+	definition: (maxAnyUsageAppeared(id) -> maxAnyUsageAppeared(id){2})[6000]
+}
+
+Rule startDse{
+	events: maxAnyUsageAppeared1000TimesIn3SecWithSameId
+	action{
+		System.out.println("CEP happened")
+
+		var component = Component.instance 
+		var success = component.calculateTrajectory 
+
+		System.out.println(success)
+
+		if(!success) {
+			System.out.println("No trajectory exists")
+			return
+		}
+
+		while (component.hasNextOperation) {
+			try {
+				System.out.println(component.nextOperation)
+			} catch (Exception e) {
+				e.printStackTrace
+			}
+		}
+		
+	}
+}
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="hu.bme.mit.inf.cps.trigger">
+   <implementation class="hu.bme.mit.inf.cps.trigger.TriggerModule"/>
+   <property name="osgi.command.scope" type="String" value="cps"/> 
+   <property name="osgi.command.function" type="String"> 
+   start
+   stop
+   restart 
+   </property>
+   <service>
+      <provide interface="hu.bme.mit.inf.cps.trigger.ITriggerModule"/>
+   </service>
+</scr:component>

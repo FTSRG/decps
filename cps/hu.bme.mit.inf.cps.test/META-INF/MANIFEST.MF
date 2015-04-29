@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: hu.bme.mit.inf.cps.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework;version="1.3.0"
+Require-Bundle: org.junit,
+ hu.bme.mit.inf.cps,
+ hu.bme.mit.inf.cps.xml,
+ hu.bme.mit.inf.cps.rdf,
+ org.eclipse.viatra.cep.core;bundle-version="0.7.0",
+ hu.bme.mit.inf.cps.patterns,
+ com.googlecode.json-simple,
+ hu.bme.mit.inf.cps.trigger;bundle-version="1.0.0"

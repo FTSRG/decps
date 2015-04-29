@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="hu.bme.mit.inf.cps.xml">
+   <implementation class="hu.bme.mit.inf.cps.xml.Component"/>
+   <service>
+      <provide interface="hu.bme.mit.inf.cps.xml.provided.ICyberPhysicalExecutor"/>
+   </service>
+</scr:component>
