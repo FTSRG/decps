@@ -13,10 +13,12 @@ import org.eclipse.incquery.runtime.api.impl.BaseGeneratedEMFQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
@@ -97,12 +99,16 @@ public final class StartInstanceQuerySpecification extends BaseGeneratedEMFQuery
       	PVariable var_appInstance = body.getOrCreateVariableByName("appInstance");
       	PVariable var___0_ = body.getOrCreateVariableByName("_<0>");
       	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
+      	PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_appInstance, "appInstance")
       	));
+      	new TypeUnary(body, var_appInstance, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
       	new PositivePatternCall(body, new FlatTuple(var_appInstance, var___0_), AllocatedToQuerySpecification.instance().getInternalQueryRepresentation());
       	new ConstantValue(body, var__virtual_0_, getEnumLiteral("http://cps/1.0", "State", "Stopped").getInstance());
-      	new TypeBinary(body, CONTEXT, var_appInstance, var__virtual_0_, getFeatureLiteral("http://cps/1.0", "ApplicationInstance", "state"), "http://cps/1.0/ApplicationInstance.state");
+      	new TypeUnary(body, var_appInstance, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
+      	new TypeBinary(body, CONTEXT, var_appInstance, var__virtual_1_, getFeatureLiteral("http://cps/1.0", "ApplicationInstance", "state"), "http://cps/1.0/ApplicationInstance.state");
+      	new Equality(body, var__virtual_1_, var__virtual_0_);
       	bodies.add(body);
       }
       	// to silence compiler error

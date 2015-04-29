@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><plugin>
-  <extension id="hu.bme.mit.inf.cps.patterns.Rules" point="org.eclipse.incquery.runtime.queryspecification">
-    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.inf.cps.patterns.Rules" id="hu.bme.mit.inf.cps.patterns.Rules"/>
-  </extension>
   <extension id="hu.bme.mit.inf.cps.patterns.Goals" point="org.eclipse.incquery.runtime.queryspecification">
     <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.inf.cps.patterns.Goals" id="hu.bme.mit.inf.cps.patterns.Goals"/>
+  </extension>
+  <extension id="hu.bme.mit.inf.cps.patterns.Rules" point="org.eclipse.incquery.runtime.queryspecification">
+    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:hu.bme.mit.inf.cps.patterns.Rules" id="hu.bme.mit.inf.cps.patterns.Rules"/>
   </extension>
 </plugin>

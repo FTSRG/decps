@@ -23,7 +23,6 @@ import org.eclipse.viatra.dse.designspace.api.IState.TraversalStateType;
 import org.eclipse.viatra.dse.designspace.api.ITransition;
 import org.eclipse.viatra.dse.guidance.Guidance;
 import org.eclipse.viatra.dse.guidance.ICriteria.EvaluationResult;
-import org.eclipse.viatra.dse.monitor.PerformanceMonitorManager;
 import org.eclipse.viatra.dse.objectives.IGlobalConstraint;
 import org.eclipse.viatra.dse.objectives.IObjective;
 import org.eclipse.viatra.dse.objectives.ObjectiveValuesMap;
@@ -91,24 +90,20 @@ public class ExplorerThread implements IExplorerThread {
             // returns
             // stop, or interrupted from outside by Strategy#stopRunning
             mainloop: while (continueExecution) {
-                PerformanceMonitorManager.endTimer(WALKER_CYCLE);
-
+                
                 if (interrupted.get()) {
                     strategy.interrupted(threadContext);
                 }
 
                 ObjectiveValuesMap objectiveValuesMap = null;
 
-                PerformanceMonitorManager.startTimer(WALKER_CYCLE);
-
+                
                 ITransition transition = null;
 
                 do {
                     // Get next activation to fire. Eventually calls the
                     // getNextTransition methods.
-                    PerformanceMonitorManager.startTimer(GET_NEXT_TRANSITION_ID_TIMER);
                     transition = strategy.getNextTransition(threadContext, transition == null);
-                    PerformanceMonitorManager.endTimer(GET_NEXT_TRANSITION_ID_TIMER);
                     // If there are no more transitions to fire, then return and
                     // stop the exploration.
                     if (transition == null) {
@@ -119,15 +114,12 @@ public class ExplorerThread implements IExplorerThread {
                 } while (!transition.tryToLock());
 
                 // fire activation
-                PerformanceMonitorManager.startTimer(FIRE_ACTIVATION_TIMER);
                 designSpaceManager.fireActivation(transition);
-                PerformanceMonitorManager.endTimer(FIRE_ACTIVATION_TIMER);
-
+                
                 IState newState = designSpaceManager.getCurrentState();
 
                 logger.debug("Transition fired: " + transition.getId() + " State: " + newState.getId());
 
-                PerformanceMonitorManager.startTimer(STATE_EVALUATION);
 
                 boolean isAlreadyTraversed = designSpaceManager.isNewModelStateAlreadyTraversed();
                 boolean areConstraintsSatisfied = true;
@@ -190,7 +182,6 @@ public class ExplorerThread implements IExplorerThread {
 
                 strategy.newStateIsProcessed(threadContext, isAlreadyTraversed, objectiveValuesMap,
                         !areConstraintsSatisfied);
-                PerformanceMonitorManager.endTimer(STATE_EVALUATION);
             }
 
             logger.debug("Strategy stopped on Thread " + Thread.currentThread());

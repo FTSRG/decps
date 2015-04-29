@@ -125,8 +125,8 @@ class ComplexGenerator {
 						'''
 					)
 					append('''setOperator(''').append(
-						'''Â«referClass(it, typeRefBuilder, pattern, EventsFactory)Â».eINSTANCE''').append(
-						'''.Â«node.operator.factoryMethodÂ»''').append(
+						'''«referClass(it, typeRefBuilder, pattern, EventsFactory)».eINSTANCE''').append(
+						'''.«node.operator.factoryMethod»''').append(
 						''');
 							''')
 					append(
@@ -136,18 +136,18 @@ class ComplexGenerator {
 						''')
 					for (p : compositionPatterns) {
 						append('''addEventPatternRefrence(new ''').append(
-							'''Â«referClass(typeRefBuilder, p, pattern)Â»''').append('''(), ''')
+							'''«referClass(typeRefBuilder, p, pattern)»''').append('''(), ''')
 						if (node.multiplicity instanceof Multiplicity) {
-							append('''Â«(node.multiplicity as Multiplicity).valueÂ»''').append(
+							append('''«(node.multiplicity as Multiplicity).value»''').append(
 								''');
 									''')
 						} else if (node.multiplicity instanceof Infinite) {
-							append('''Â«referClass(it, typeRefBuilder, pattern, EventsFactory)Â»''').append(
+							append('''«referClass(it, typeRefBuilder, pattern, EventsFactory)»''').append(
 								'''.eINSTANCE.createInfinite()''').append(
 								''');
 									''')
 						} else if (node.multiplicity instanceof AtLeastOne) {
-							append('''Â«referClass(it, typeRefBuilder, pattern, EventsFactory)Â»''').append(
+							append('''«referClass(it, typeRefBuilder, pattern, EventsFactory)»''').append(
 								'''.eINSTANCE.createAtLeastOne()''').append(
 								''');
 									''')
@@ -161,20 +161,20 @@ class ComplexGenerator {
 						it.append(
 							'''
 						
-						''').append('''Â«referClass(it, typeRefBuilder, pattern, Timewindow)Â»''').append(''' timewindow = ''').
-							append('''Â«referClass(it, typeRefBuilder, pattern, EventsFactory)Â».eINSTANCE''').
+						''').append('''«referClass(it, typeRefBuilder, pattern, Timewindow)»''').append(''' timewindow = ''').
+							append('''«referClass(it, typeRefBuilder, pattern, EventsFactory)».eINSTANCE''').
 							append(
 								'''.createTimewindow();
 									''').append(
 								'''
-									timewindow.setTime(Â«node.timewindow.timeÂ»);
+									timewindow.setTime(«node.timewindow.time»);
 									setTimewindow(timewindow);
 										
 								''')
 					}
 					it.append(
 						'''
-						setId("Â«className.toLowerCaseÂ»");''')
+						setId("«className.toLowerCase»");''')
 				]
 			]
 			if (complexPatternType.normal) {
@@ -194,12 +194,12 @@ class ComplexGenerator {
 		val multiplicity = node.multiplicity
 		switch (multiplicity) {
 			Multiplicity case multiplicity:
-				treeAppendable.append('''Â«multiplicity.valueÂ»''')
+				treeAppendable.append('''«multiplicity.value»''')
 			Infinite case multiplicity:
-				treeAppendable.append('''Â«referClass(treeAppendable, typeRefBuilder, pattern, EventsFactory)Â»''').
+				treeAppendable.append('''«referClass(treeAppendable, typeRefBuilder, pattern, EventsFactory)»''').
 					append('''.eINSTANCE().createInfinite()''').append(''';''')
 			AtLeastOne case multiplicity:
-				treeAppendable.append('''Â«referClass(treeAppendable, typeRefBuilder, pattern, EventsFactory)Â»''').
+				treeAppendable.append('''«referClass(treeAppendable, typeRefBuilder, pattern, EventsFactory)»''').
 					append('''.eINSTANCE().createAtLeastOne()''').append(''';''')
 		}
 	}
@@ -241,7 +241,7 @@ class ComplexGenerator {
 		method.setBody [
 			append(
 				'''
-				if(event instanceof ''').append('''Â«referClass(it, typeRefBuilder, method, ParameterizableEventInstance)Â»''').
+				if(event instanceof ''').append('''«referClass(it, typeRefBuilder, method, ParameterizableEventInstance)»''').
 				append(
 					'''){
 						''').append(
@@ -266,9 +266,9 @@ class ComplexGenerator {
 		val expression = pattern.complexEventExpression
 		method.setBody [
 			append(
-				'''Â«referClass(it, typeRefBuilder, pattern, Map, typeRefBuilder.typeRef("String"),
-					typeRefBuilder.typeRef("Object"))Â»''').append(''' params = ''').append(
-				'''Â«referClass(it, typeRefBuilder, pattern, Maps)Â»''')
+				'''«referClass(it, typeRefBuilder, pattern, Map, typeRefBuilder.typeRef("String"),
+					typeRefBuilder.typeRef("Object"))»''').append(''' params = ''').append(
+				'''«referClass(it, typeRefBuilder, pattern, Maps)»''')
 			append(
 				'''.newHashMap();
 					''')
@@ -302,18 +302,18 @@ class ComplexGenerator {
 		if (atom.patternCall.parameterList != null && !atom.patternCall.parameterList.parameters.empty) {
 			appendable.append(
 				'''
-				Â«conditionÂ» (event instanceof ''').append(
-				'''Â«appendable.referClass(typeRefBuilder, atom.patternCall.eventPattern.classFqn, ctx)Â»''').append(
+				«condition» (event instanceof ''').append(
+				'''«appendable.referClass(typeRefBuilder, atom.patternCall.eventPattern.classFqn, ctx)»''').append(
 				'''){
 					''')
 			var i = 0
 			for (param : atom.patternCall.parameterList.parameters.filter[p|!p.ignorable]) {
-				appendable.append('''	Object valueÂ«iÂ» = ((''').append(
-					'''Â«appendable.referClass(typeRefBuilder, atom.patternCall.eventPattern.classFqn, ctx)Â»''').append(
-					''') event).getParameter(Â«atom.patternCall.parameterList.parameters.indexOf(param)Â»);
+				appendable.append('''	Object value«i» = ((''').append(
+					'''«appendable.referClass(typeRefBuilder, atom.patternCall.eventPattern.classFqn, ctx)»''').append(
+					''') event).getParameter(«atom.patternCall.parameterList.parameters.indexOf(param)»);
 						''')
 				appendable.append(
-					'''	params.put("Â«param.nameÂ»", valueÂ«iÂ»);
+					'''	params.put("«param.name»", value«i»);
 						''')
 				i = i + 1
 			}

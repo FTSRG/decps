@@ -73,11 +73,11 @@ class FactoryGenerator {
 		List<JvmMember> members, FactoryMethodParameter methodParameter, JvmTypeReferenceBuilder typeRefBuilder) {
 		var method = model.toMethod("create" + fqn.lastSegment, typeRefBuilder.typeRef(fqn.toString)) [
 			body = [
-				append('''return new ''').append('''Â«referClass(it, typeRefBuilder, fqn, model)Â»''').append(
-					'''(Â«methodParameter.literalÂ»);''')
+				append('''return new ''').append('''«referClass(it, typeRefBuilder, fqn, model)»''').append(
+					'''(«methodParameter.literal»);''')
 			]
 		]
-		method.setDocumentation('''Factory method for Â«fqn.typeÂ» {@link Â«fqn.lastSegmentÂ»}.''')
+		method.setDocumentation('''Factory method for «fqn.type» {@link «fqn.lastSegment»}.''')
 		method
 	}
 
@@ -87,10 +87,10 @@ class FactoryGenerator {
 			body = [
 				append('''List<ICepRule> rules = ''')
 				append(
-					'''Â«referClass(typeRefBuilder, model, Lists)Â».newArrayList();
+					'''«referClass(typeRefBuilder, model, Lists)».newArrayList();
 						''');
 				for (fqn : ruleFqns) {
-					append('''rules.add(new ''').append('''Â«referClass(typeRefBuilder, fqn, model)Â»''').append(
+					append('''rules.add(new ''').append('''«referClass(typeRefBuilder, fqn, model)»''').append(
 						'''());
 							''')
 				}

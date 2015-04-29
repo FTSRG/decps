@@ -12,8 +12,10 @@ import org.eclipse.incquery.runtime.api.impl.BaseGeneratedEMFQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 
@@ -92,12 +94,17 @@ final class ApplicationsInRequirementQuerySpecification extends BaseGeneratedEMF
       	PBody body = new PBody(this);
       	PVariable var_req = body.getOrCreateVariableByName("req");
       	PVariable var_app = body.getOrCreateVariableByName("app");
+      	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_req, "req"),
       				
       		new ExportedParameter(body, var_app, "app")
       	));
-      	new TypeBinary(body, CONTEXT, var_req, var_app, getFeatureLiteral("http://cps/1.0", "Requirement", "instances"), "http://cps/1.0/Requirement.instances");
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "Requirement"), "http://cps/1.0/Requirement");
+      	new TypeUnary(body, var_app, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "Requirement"), "http://cps/1.0/Requirement");
+      	new TypeBinary(body, CONTEXT, var_req, var__virtual_0_, getFeatureLiteral("http://cps/1.0", "Requirement", "instances"), "http://cps/1.0/Requirement.instances");
+      	new Equality(body, var__virtual_0_, var_app);
       	bodies.add(body);
       }
       	// to silence compiler error

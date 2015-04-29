@@ -43,8 +43,8 @@ class Utils {
 		advancedSetter.setBody [
 			append(
 				'''
-				this.Â«nameÂ» = Â«nameÂ»;
-				getParameters().set(Â«indexÂ», Â«nameÂ»);''')
+				this.«name» = «name»;
+				getParameters().set(«index», «name»);''')
 		]
 		return Lists.newArrayList(advancedSetter)
 	}

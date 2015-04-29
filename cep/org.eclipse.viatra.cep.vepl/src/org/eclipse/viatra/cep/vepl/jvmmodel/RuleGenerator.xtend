@@ -62,17 +62,17 @@ class RuleGenerator {
 			superTypes += typeRefBuilder.typeRef(ICepRule)
 			val eventPatterns = rule.eventPatterns
 			members += rule.toField("eventPatterns", typeRefBuilder.typeRef(List, typeRefBuilder.typeRef(EventPattern))) [
-				initializer = [append('''Â«referClass(typeRefBuilder, rule, Lists)Â».newArrayList()''')]
+				initializer = [append('''«referClass(typeRefBuilder, rule, Lists)».newArrayList()''')]
 			]
 			members += rule.toField("job",
 				typeRefBuilder.typeRef(Job, typeRefBuilder.typeRef(IObservableComplexEventPattern))) [
 				initializer = [
-					append('''new ''').append('''Â«it.referClass(typeRefBuilder, rule.jobClassName, rule)Â»''').
-						append('''(''').append('''Â«referClass(typeRefBuilder, rule, CepActivationStates)Â».ACTIVE)''')]
+					append('''new ''').append('''«it.referClass(typeRefBuilder, rule.jobClassName, rule)»''').
+						append('''(''').append('''«referClass(typeRefBuilder, rule, CepActivationStates)».ACTIVE)''')]
 			]
 			members += rule.toConstructor [
 				body = [
-					append('''Â«enumerateAssignableEventPatterns(it, rule)Â»''')
+					append('''«enumerateAssignableEventPatterns(it, rule)»''')
 				]
 			]
 			var patternsGetter = rule.toGetter("eventPatterns",
@@ -134,7 +134,7 @@ class RuleGenerator {
 		var actionHandler = (ctx as Rule).actionHandler
 		appendable.append(
 			'''
-			Â«referClass(appendable, typeRefBuilder, ctx, IActionHandler)Â» actionHandler = new Â«actionHandlerÂ»();
+			«referClass(appendable, typeRefBuilder, ctx, IActionHandler)» actionHandler = new «actionHandler»();
 			actionHandler.handle(activation);'''
 		)
 	}
@@ -146,7 +146,7 @@ class RuleGenerator {
 
 		for (ep : rule.eventPatterns) {
 			appendable.append('''eventPatterns.add(new ''').append(
-				'''Â«appendable.referClass(typeRefBuilder, ep.eventPattern.patternFqn, rule)Â»''').append('''());''')
+				'''«appendable.referClass(typeRefBuilder, ep.eventPattern.patternFqn, rule)»''').append('''());''')
 			if (!ep.equals(rule.eventPatterns.last)) {
 				appendable.append('\n')
 			}

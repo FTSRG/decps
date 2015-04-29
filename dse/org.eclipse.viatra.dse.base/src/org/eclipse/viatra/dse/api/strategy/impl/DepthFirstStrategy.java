@@ -19,7 +19,6 @@ import org.eclipse.viatra.dse.base.DesignSpaceManager;
 import org.eclipse.viatra.dse.base.GlobalContext;
 import org.eclipse.viatra.dse.base.ThreadContext;
 import org.eclipse.viatra.dse.designspace.api.ITransition;
-import org.eclipse.viatra.dse.monitor.PerformanceMonitorManager;
 import org.eclipse.viatra.dse.objectives.ObjectiveValuesMap;
 
 public class DepthFirstStrategy implements IStrategy {
@@ -67,16 +66,12 @@ public class DepthFirstStrategy implements IStrategy {
         }
 
         DesignSpaceManager dsm = context.getDesignSpaceManager();
-        PerformanceMonitorManager.startTimer(GET_LOCAL_FIREABLE_TRANSITIONS);
         List<? extends ITransition> transitions = dsm.getUntraversedTransitionsFromCurrentState();
-        PerformanceMonitorManager.endTimer(GET_LOCAL_FIREABLE_TRANSITIONS);
-
+        
         // backtrack
         while (transitions == null || transitions.isEmpty()
                 || ((baseDepth + dsm.getTrajectoryInfo().getDepthFromCrawlerRoot() >= sharedData.maxDepth) && sharedData.maxDepth > 0)) {
-            PerformanceMonitorManager.startTimer(UNDO_TIMER);
             boolean didUndo = dsm.undoLastTransformation();
-            PerformanceMonitorManager.endTimer(UNDO_TIMER);
             if (!didUndo) {
                 return null;
             }
@@ -84,9 +79,7 @@ public class DepthFirstStrategy implements IStrategy {
             logger.debug("Backtracking as there aren't anymore transitions from this state: "
                     + dsm.getCurrentState().getId());
 
-            PerformanceMonitorManager.startTimer(GET_LOCAL_FIREABLE_TRANSITIONS);
             transitions = dsm.getUntraversedTransitionsFromCurrentState();
-            PerformanceMonitorManager.endTimer(GET_LOCAL_FIREABLE_TRANSITIONS);
         }
 
         if (transitions.size() > 1 && context.getGlobalContext().canStartNewThread()) {

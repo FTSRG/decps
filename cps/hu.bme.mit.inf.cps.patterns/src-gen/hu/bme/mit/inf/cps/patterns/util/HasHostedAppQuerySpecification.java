@@ -12,8 +12,10 @@ import org.eclipse.incquery.runtime.api.impl.BaseGeneratedEMFQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 
@@ -92,10 +94,14 @@ public final class HasHostedAppQuerySpecification extends BaseGeneratedEMFQueryS
       	PBody body = new PBody(this);
       	PVariable var_host = body.getOrCreateVariableByName("host");
       	PVariable var___0_ = body.getOrCreateVariableByName("_<0>");
+      	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_host, "host")
       	));
-      	new TypeBinary(body, CONTEXT, var_host, var___0_, getFeatureLiteral("http://cps/1.0", "HostInstance", "applications"), "http://cps/1.0/HostInstance.applications");
+      	new TypeUnary(body, var_host, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeUnary(body, var_host, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_host, var__virtual_0_, getFeatureLiteral("http://cps/1.0", "HostInstance", "applications"), "http://cps/1.0/HostInstance.applications");
+      	new Equality(body, var__virtual_0_, var___0_);
       	bodies.add(body);
       }
       	// to silence compiler error

@@ -12,8 +12,10 @@ import org.eclipse.incquery.runtime.api.impl.BaseGeneratedEMFQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 
@@ -92,12 +94,17 @@ public final class CancelRequestQuerySpecification extends BaseGeneratedEMFQuery
       	PBody body = new PBody(this);
       	PVariable var_request = body.getOrCreateVariableByName("request");
       	PVariable var_cps = body.getOrCreateVariableByName("cps");
+      	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_request, "request"),
       				
       		new ExportedParameter(body, var_cps, "cps")
       	));
-      	new TypeBinary(body, CONTEXT, var_cps, var_request, getFeatureLiteral("http://cps/1.0", "CyberPhysicalSystem", "requests"), "http://cps/1.0/CyberPhysicalSystem.requests");
+      	new TypeUnary(body, var_request, getClassifierLiteral("http://cps/1.0", "Request"), "http://cps/1.0/Request");
+      	new TypeUnary(body, var_cps, getClassifierLiteral("http://cps/1.0", "CyberPhysicalSystem"), "http://cps/1.0/CyberPhysicalSystem");
+      	new TypeUnary(body, var_cps, getClassifierLiteral("http://cps/1.0", "CyberPhysicalSystem"), "http://cps/1.0/CyberPhysicalSystem");
+      	new TypeBinary(body, CONTEXT, var_cps, var__virtual_0_, getFeatureLiteral("http://cps/1.0", "CyberPhysicalSystem", "requests"), "http://cps/1.0/CyberPhysicalSystem.requests");
+      	new Equality(body, var__virtual_0_, var_request);
       	bodies.add(body);
       }
       	// to silence compiler error

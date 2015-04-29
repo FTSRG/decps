@@ -14,9 +14,11 @@ import org.eclipse.incquery.runtime.matchers.psystem.IExpressionEvaluator;
 import org.eclipse.incquery.runtime.matchers.psystem.IValueProvider;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 
@@ -97,13 +99,22 @@ public final class CanAllocateToQuerySpecification extends BaseGeneratedEMFQuery
       	PVariable var_hostInstance = body.getOrCreateVariableByName("hostInstance");
       	PVariable var_req = body.getOrCreateVariableByName("req");
       	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
+      	PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
       	PVariable var_hostType = body.getOrCreateVariableByName("hostType");
+      	PVariable var__virtual_2_ = body.getOrCreateVariableByName(".virtual{2}");
+      	PVariable var__virtual_3_ = body.getOrCreateVariableByName(".virtual{3}");
       	PVariable var_currMemorySize = body.getOrCreateVariableByName("currMemorySize");
+      	PVariable var__virtual_4_ = body.getOrCreateVariableByName(".virtual{4}");
       	PVariable var_reqMemorySize = body.getOrCreateVariableByName("reqMemorySize");
+      	PVariable var__virtual_5_ = body.getOrCreateVariableByName(".virtual{5}");
       	PVariable var_currHdd = body.getOrCreateVariableByName("currHdd");
+      	PVariable var__virtual_6_ = body.getOrCreateVariableByName(".virtual{6}");
       	PVariable var_reqHdd = body.getOrCreateVariableByName("reqHdd");
+      	PVariable var__virtual_7_ = body.getOrCreateVariableByName(".virtual{7}");
       	PVariable var_currCpu = body.getOrCreateVariableByName("currCpu");
+      	PVariable var__virtual_8_ = body.getOrCreateVariableByName(".virtual{8}");
       	PVariable var_reqCpu = body.getOrCreateVariableByName("reqCpu");
+      	PVariable var__virtual_9_ = body.getOrCreateVariableByName(".virtual{9}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_appInstance, "appInstance"),
       				
@@ -111,12 +122,25 @@ public final class CanAllocateToQuerySpecification extends BaseGeneratedEMFQuery
       				
       		new ExportedParameter(body, var_req, "req")
       	));
+      	new TypeUnary(body, var_appInstance, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
+      	new TypeUnary(body, var_hostInstance, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "ResourceRequirement"), "http://cps/1.0/ResourceRequirement");
+      	new TypeUnary(body, var_appInstance, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
       	new TypeBinary(body, CONTEXT, var_appInstance, var__virtual_0_, getFeatureLiteral("http://cps/1.0", "ApplicationInstance", "type"), "http://cps/1.0/ApplicationInstance.type");
-      	new TypeBinary(body, CONTEXT, var__virtual_0_, var_req, getFeatureLiteral("http://cps/1.0", "ApplicationType", "requirements"), "http://cps/1.0/ApplicationType.requirements");
-      	new TypeBinary(body, CONTEXT, var_req, var_hostType, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "hostType"), "http://cps/1.0/ResourceRequirement.hostType");
-      	new TypeBinary(body, CONTEXT, var_hostInstance, var_hostType, getFeatureLiteral("http://cps/1.0", "HostInstance", "type"), "http://cps/1.0/HostInstance.type");
-      	new TypeBinary(body, CONTEXT, var_hostInstance, var_currMemorySize, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableMemory"), "http://cps/1.0/HostInstance.availableMemory");
-      	new TypeBinary(body, CONTEXT, var_req, var_reqMemorySize, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "requiredMemory"), "http://cps/1.0/ResourceRequirement.requiredMemory");
+      	new TypeBinary(body, CONTEXT, var__virtual_0_, var__virtual_1_, getFeatureLiteral("http://cps/1.0", "ApplicationType", "requirements"), "http://cps/1.0/ApplicationType.requirements");
+      	new Equality(body, var__virtual_1_, var_req);
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "ResourceRequirement"), "http://cps/1.0/ResourceRequirement");
+      	new TypeBinary(body, CONTEXT, var_req, var__virtual_2_, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "hostType"), "http://cps/1.0/ResourceRequirement.hostType");
+      	new Equality(body, var__virtual_2_, var_hostType);
+      	new TypeUnary(body, var_hostInstance, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_hostInstance, var__virtual_3_, getFeatureLiteral("http://cps/1.0", "HostInstance", "type"), "http://cps/1.0/HostInstance.type");
+      	new Equality(body, var__virtual_3_, var_hostType);
+      	new TypeUnary(body, var_hostInstance, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_hostInstance, var__virtual_4_, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableMemory"), "http://cps/1.0/HostInstance.availableMemory");
+      	new Equality(body, var__virtual_4_, var_currMemorySize);
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "ResourceRequirement"), "http://cps/1.0/ResourceRequirement");
+      	new TypeBinary(body, CONTEXT, var_req, var__virtual_5_, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "requiredMemory"), "http://cps/1.0/ResourceRequirement.requiredMemory");
+      	new Equality(body, var__virtual_5_, var_reqMemorySize);
       new ExpressionEvaluation(body, new IExpressionEvaluator() {
       	
       	@Override
@@ -137,8 +161,12 @@ public final class CanAllocateToQuerySpecification extends BaseGeneratedEMFQuery
       		}
       
       },  null); 
-      	new TypeBinary(body, CONTEXT, var_hostInstance, var_currHdd, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableHdd"), "http://cps/1.0/HostInstance.availableHdd");
-      	new TypeBinary(body, CONTEXT, var_req, var_reqHdd, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "requiredHdd"), "http://cps/1.0/ResourceRequirement.requiredHdd");
+      	new TypeUnary(body, var_hostInstance, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_hostInstance, var__virtual_6_, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableHdd"), "http://cps/1.0/HostInstance.availableHdd");
+      	new Equality(body, var__virtual_6_, var_currHdd);
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "ResourceRequirement"), "http://cps/1.0/ResourceRequirement");
+      	new TypeBinary(body, CONTEXT, var_req, var__virtual_7_, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "requiredHdd"), "http://cps/1.0/ResourceRequirement.requiredHdd");
+      	new Equality(body, var__virtual_7_, var_reqHdd);
       new ExpressionEvaluation(body, new IExpressionEvaluator() {
       	
       	@Override
@@ -159,8 +187,12 @@ public final class CanAllocateToQuerySpecification extends BaseGeneratedEMFQuery
       		}
       
       },  null); 
-      	new TypeBinary(body, CONTEXT, var_hostInstance, var_currCpu, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableCpu"), "http://cps/1.0/HostInstance.availableCpu");
-      	new TypeBinary(body, CONTEXT, var_req, var_reqCpu, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "requiredCpu"), "http://cps/1.0/ResourceRequirement.requiredCpu");
+      	new TypeUnary(body, var_hostInstance, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_hostInstance, var__virtual_8_, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableCpu"), "http://cps/1.0/HostInstance.availableCpu");
+      	new Equality(body, var__virtual_8_, var_currCpu);
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "ResourceRequirement"), "http://cps/1.0/ResourceRequirement");
+      	new TypeBinary(body, CONTEXT, var_req, var__virtual_9_, getFeatureLiteral("http://cps/1.0", "ResourceRequirement", "requiredCpu"), "http://cps/1.0/ResourceRequirement.requiredCpu");
+      	new Equality(body, var__virtual_9_, var_reqCpu);
       new ExpressionEvaluation(body, new IExpressionEvaluator() {
       	
       	@Override

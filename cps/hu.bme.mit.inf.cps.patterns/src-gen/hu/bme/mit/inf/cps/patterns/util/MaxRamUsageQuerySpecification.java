@@ -14,9 +14,11 @@ import org.eclipse.incquery.runtime.matchers.psystem.IExpressionEvaluator;
 import org.eclipse.incquery.runtime.matchers.psystem.IValueProvider;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 
@@ -96,7 +98,10 @@ final class MaxRamUsageQuerySpecification extends BaseGeneratedEMFQuerySpecifica
       	PVariable var_id = body.getOrCreateVariableByName("id");
       	PVariable var_host = body.getOrCreateVariableByName("host");
       	PVariable var_app = body.getOrCreateVariableByName("app");
+      	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       	PVariable var_ram = body.getOrCreateVariableByName("ram");
+      	PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
+      	PVariable var__virtual_2_ = body.getOrCreateVariableByName(".virtual{2}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_id, "id"),
       				
@@ -104,9 +109,17 @@ final class MaxRamUsageQuerySpecification extends BaseGeneratedEMFQuerySpecifica
       				
       		new ExportedParameter(body, var_app, "app")
       	));
-      	new TypeBinary(body, CONTEXT, var_host, var_id, getFeatureLiteral("http://cps/1.0", "Identifiable", "id"), "http://cps/1.0/Identifiable.id");
-      	new TypeBinary(body, CONTEXT, var_host, var_ram, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableHdd"), "http://cps/1.0/HostInstance.availableHdd");
-      	new TypeBinary(body, CONTEXT, var_app, var_host, getFeatureLiteral("http://cps/1.0", "ApplicationInstance", "allocatedTo"), "http://cps/1.0/ApplicationInstance.allocatedTo");
+      	new TypeUnary(body, var_host, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeUnary(body, var_app, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
+      	new TypeUnary(body, var_host, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_host, var__virtual_0_, getFeatureLiteral("http://cps/1.0", "Identifiable", "id"), "http://cps/1.0/Identifiable.id");
+      	new Equality(body, var__virtual_0_, var_id);
+      	new TypeUnary(body, var_host, getClassifierLiteral("http://cps/1.0", "HostInstance"), "http://cps/1.0/HostInstance");
+      	new TypeBinary(body, CONTEXT, var_host, var__virtual_1_, getFeatureLiteral("http://cps/1.0", "HostInstance", "availableHdd"), "http://cps/1.0/HostInstance.availableHdd");
+      	new Equality(body, var__virtual_1_, var_ram);
+      	new TypeUnary(body, var_app, getClassifierLiteral("http://cps/1.0", "ApplicationInstance"), "http://cps/1.0/ApplicationInstance");
+      	new TypeBinary(body, CONTEXT, var_app, var__virtual_2_, getFeatureLiteral("http://cps/1.0", "ApplicationInstance", "allocatedTo"), "http://cps/1.0/ApplicationInstance.allocatedTo");
+      	new Equality(body, var__virtual_2_, var_host);
       new ExpressionEvaluation(body, new IExpressionEvaluator() {
       	
       	@Override

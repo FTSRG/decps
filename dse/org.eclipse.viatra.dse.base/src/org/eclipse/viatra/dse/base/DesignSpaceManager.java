@@ -41,7 +41,6 @@ import org.eclipse.viatra.dse.designspace.api.TrajectoryInfo;
 import org.eclipse.viatra.dse.designspace.api.TransitionMetaData;
 import org.eclipse.viatra.dse.guidance.IRuleApplicationChanger;
 import org.eclipse.viatra.dse.guidance.IRuleApplicationNumberChanged;
-import org.eclipse.viatra.dse.monitor.PerformanceMonitorManager;
 import org.eclipse.viatra.dse.statecode.IStateSerializer;
 import org.eclipse.viatra.dse.statecode.IStateSerializerFactory;
 import org.eclipse.viatra.dse.visualizer.IExploreEventHandler;
@@ -123,10 +122,8 @@ public class DesignSpaceManager implements IDesignSpaceManager, IRuleApplication
         IState previousState = trajectory.getCurrentState();
 
         // execute the command
-        PerformanceMonitorManager.startTimer(EXECUTE);
         domain.getCommandStack().execute(rc);
-        PerformanceMonitorManager.endTimer(EXECUTE);
-
+        
         Object newStateId = stateSerializer.serializeContainmentTree();
 
         isNewState = designSpace.addState(transition, newStateId, generateTransitions());

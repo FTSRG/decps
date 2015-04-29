@@ -13,10 +13,12 @@ import org.eclipse.incquery.runtime.api.impl.BaseGeneratedEMFQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Inequality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.PatternMatchCounter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
@@ -96,13 +98,19 @@ public final class UnsatisfiedRequirementQuerySpecification extends BaseGenerate
       	PBody body = new PBody(this);
       	PVariable var_req = body.getOrCreateVariableByName("req");
       	PVariable var_M = body.getOrCreateVariableByName("M");
+      	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       	PVariable var___0_ = body.getOrCreateVariableByName("_<0>");
       	PVariable var_N = body.getOrCreateVariableByName("N");
+      	PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
       		new ExportedParameter(body, var_req, "req")
       	));
-      	new PatternMatchCounter(body, new FlatTuple(var_req, var___0_), ApplicationInRequirementQuerySpecification.instance().getInternalQueryRepresentation(), var_M);
-      	new TypeBinary(body, CONTEXT, var_req, var_N, getFeatureLiteral("http://cps/1.0", "Requirement", "count"), "http://cps/1.0/Requirement.count");
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "Requirement"), "http://cps/1.0/Requirement");
+      	new PatternMatchCounter(body, new FlatTuple(var_req, var___0_), ApplicationInRequirementQuerySpecification.instance().getInternalQueryRepresentation(), var__virtual_0_);
+      	new Equality(body, var_M, var__virtual_0_);
+      	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "Requirement"), "http://cps/1.0/Requirement");
+      	new TypeBinary(body, CONTEXT, var_req, var__virtual_1_, getFeatureLiteral("http://cps/1.0", "Requirement", "count"), "http://cps/1.0/Requirement.count");
+      	new Equality(body, var__virtual_1_, var_N);
       	new Inequality(body, var_M, var_N);
       	bodies.add(body);
       }

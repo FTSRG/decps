@@ -50,12 +50,12 @@ class AtomicGenerator {
 							'''
 							super(eventSource);''').append(
 							'''
-								Â«IF paramList != nullÂ»
+								«IF paramList != null»
 
-									Â«FOR parameter : paramList.parametersÂ»
-										getParameters().add(Â«parameter.nameÂ»);
-									Â«ENDFORÂ»
-								Â«ENDIFÂ»
+									«FOR parameter : paramList.parameters»
+										getParameters().add(«parameter.name»);
+									«ENDFOR»
+								«ENDIF»
 							''')
 					]
 				]
@@ -82,11 +82,11 @@ class AtomicGenerator {
 						append(
 							'''
 							super();
-							setType(''').append('''Â«it.referClass(typeRefBuilder, pattern.classFqn, pattern)Â»''').append(
+							setType(''').append('''«it.referClass(typeRefBuilder, pattern.classFqn, pattern)»''').append(
 							'''.class.getCanonicalName());''').append(
 							'''
 							
-							setId("Â«pattern.patternFqn.toString.toLowerCaseÂ»");'''
+							setId("«pattern.patternFqn.toString.toLowerCase»");'''
 						)]
 				]
 				members += pattern.toMethod("checkStaticBindings", typeRefBuilder.typeRef("boolean")) [

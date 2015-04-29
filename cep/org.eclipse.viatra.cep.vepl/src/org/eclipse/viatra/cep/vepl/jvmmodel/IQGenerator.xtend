@@ -93,9 +93,9 @@ class IQGenerator {
 					append(
 						'''
 						EventDrivenTransformationRuleGroup ruleGroup = new EventDrivenTransformationRuleGroup(
-							Â«FOR p : groupedPatterns.keySet SEPARATOR ", " AFTER ");"Â»
-								Â«p.mappingMethodNameÂ»()
-							Â«ENDFORÂ»
+							«FOR p : groupedPatterns.keySet SEPARATOR ", " AFTER ");"»
+								«p.mappingMethodName»()
+							«ENDFOR»
 						
 						return ruleGroup;'''
 					)
@@ -125,16 +125,16 @@ class IQGenerator {
 							append('''try{''').increaseIndentation
 							newLine
 							append(
-								'''Â«referClass(it, typeRefBuilder, p, EventDrivenTransformationBuilder,
-									typeRefBuilder.typeRef(match), typeRefBuilder.typeRef(matcher))Â»''')
+								'''«referClass(it, typeRefBuilder, p, EventDrivenTransformationBuilder,
+									typeRefBuilder.typeRef(match), typeRefBuilder.typeRef(matcher))»''')
 							append(''' builder = new ''')
-							append('''Â«referClass(it, typeRefBuilder, p, EventDrivenTransformationRuleFactory)Â»''')
+							append('''«referClass(it, typeRefBuilder, p, EventDrivenTransformationRuleFactory)»''')
 							append('''().createRule();''')
 							newLine
 							append(
 								'''
 								builder.addLifeCycle(EventDrivenTransformationRuleFactory.INTERVAL_SEMANTICS);
-								builder.precondition(''').append('''Â«it.referClass(typeRefBuilder, matcher, p)Â»''').
+								builder.precondition(''').append('''«it.referClass(typeRefBuilder, matcher, p)»''').
 								append(
 									'''.querySpecification());
 										''')
@@ -168,12 +168,12 @@ class IQGenerator {
 							append('''return builder.build();''').decreaseIndentation
 							newLine
 							append('''} catch (''').append(
-								'''Â«referClass(it, typeRefBuilder, p, IncQueryException)Â» e) {''').increaseIndentation
+								'''«referClass(it, typeRefBuilder, p, IncQueryException)» e) {''').increaseIndentation
 							newLine
 							append('''e.printStackTrace();''').decreaseIndentation
 							newLine
 							append('''} catch (''').append(
-								'''Â«referClass(it, typeRefBuilder, p, InconsistentEventSemanticsException)Â»''').append(
+								'''«referClass(it, typeRefBuilder, p, InconsistentEventSemanticsException)»''').append(
 								''' e) {''').increaseIndentation
 							newLine
 							append('''e.printStackTrace();''').decreaseIndentation
@@ -234,20 +234,20 @@ class IQGenerator {
 		int counter, boolean empty) {
 		ita.newLine
 		ita.append(
-			'''Â«referClass(ita, typeRefBuilder, eventPattern, IMatchProcessor, typeRefBuilder.typeRef(match))Â» Â«changeType.
-				actionNameÂ»_Â«counterÂ»''').append(''' = new ''').append(
-			'''Â«referClass(ita, typeRefBuilder, eventPattern, IMatchProcessor, typeRefBuilder.typeRef(match))Â»() {''').
+			'''«referClass(ita, typeRefBuilder, eventPattern, IMatchProcessor, typeRefBuilder.typeRef(match))» «changeType.
+				actionName»_«counter»''').append(''' = new ''').append(
+			'''«referClass(ita, typeRefBuilder, eventPattern, IMatchProcessor, typeRefBuilder.typeRef(match))»() {''').
 			increaseIndentation
 		ita.newLine
-		ita.append('''public void process(final ''').append('''Â«ita.referClass(typeRefBuilder, match, p)Â»''').
+		ita.append('''public void process(final ''').append('''«ita.referClass(typeRefBuilder, match, p)»''').
 			append(''' matchedPattern) {''')
 		if (!empty) {
 			ita.increaseIndentation
 			ita.newLine
-			ita.append('''Â«ita.referClass(typeRefBuilder, eventPattern.classFqn, p)Â»''').append(
-				''' event = new ''').append('''Â«ita.referClass(typeRefBuilder, eventPattern.classFqn, p)Â»''').append(
+			ita.append('''«ita.referClass(typeRefBuilder, eventPattern.classFqn, p)»''').append(
+				''' event = new ''').append('''«ita.referClass(typeRefBuilder, eventPattern.classFqn, p)»''').append(
 				'''(null);''')
-			ita.append('''Â«getParameterMapping(ita, eventPattern)Â»''')
+			ita.append('''«getParameterMapping(ita, eventPattern)»''')
 			ita.newLine
 			ita.append('''event.setIncQueryPattern(matchedPattern);''')
 			ita.newLine
@@ -259,8 +259,8 @@ class IQGenerator {
 		ita.append('''};''')
 		ita.newLine
 		ita.append('''builder.action(''').append(
-			'''Â«referClass(ita, typeRefBuilder, eventPattern, IncQueryActivationStateEnum)Â».''').append(
-			'''Â«changeType.activationStateÂ», Â«changeType.actionNameÂ»_Â«counterÂ»''').append(''');''')
+			'''«referClass(ita, typeRefBuilder, eventPattern, IncQueryActivationStateEnum)».''').append(
+			'''«changeType.activationState», «changeType.actionName»_«counter»''').append(''');''')
 		ita.newLine
 	}
 
@@ -311,8 +311,8 @@ class IQGenerator {
 				var eventParamType = eventPatternParams.get(eventParamPosition).type
 				appendable.append(
 					'''
-					event.setÂ«iqParamName.toFirstUpperÂ»((''').append('''Â«eventParamType.qualifiedNameÂ»''').append(
-					''')matchedPattern.get(Â«iÂ»));
+					event.set«iqParamName.toFirstUpper»((''').append('''«eventParamType.qualifiedName»''').append(
+					''')matchedPattern.get(«i»));
 						''')
 			}
 		}
