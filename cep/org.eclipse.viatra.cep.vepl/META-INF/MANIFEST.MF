@@ -1,0 +1,39 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: VIATRA Event Processing Language (VEPL)
+Bundle-Vendor: Eclipse VIATRA Project
+Bundle-Version: 0.7.0.qualifier
+Bundle-SymbolicName: org.eclipse.viatra.cep.vepl; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;bundle-version="[2.7.0,2.8.0)";visibility:=reexport,
+ org.eclipse.xtext.xbase;bundle-version="[2.7.0,2.8.0)";resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;bundle-version="[2.7.0,2.8.0)";resolution:=optional,
+ org.apache.commons.logging;resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.incquery.patternlanguage;bundle-version="[1.0.0,1.1.0)",
+ org.eclipse.xtext.util;bundle-version="[2.7.0,2.8.0)",
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types;bundle-version="[2.7.0,2.8.0)",
+ org.eclipse.xtext.xbase.lib;bundle-version="[2.7.0,2.8.0)",
+ org.eclipse.viatra.cep.core.metamodels,
+ org.eclipse.viatra.emf.runtime,
+ org.eclipse.viatra.cep.core,
+ org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.xbase.lib
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.eclipse.viatra.cep.vepl,
+ org.eclipse.viatra.cep.vepl.services,
+ org.eclipse.viatra.cep.vepl.vepl,
+ org.eclipse.viatra.cep.vepl.vepl.impl,
+ org.eclipse.viatra.cep.vepl.vepl.util,
+ org.eclipse.viatra.cep.vepl.serializer,
+ org.eclipse.viatra.cep.vepl.parser.antlr,
+ org.eclipse.viatra.cep.vepl.parser.antlr.internal,
+ org.eclipse.viatra.cep.vepl.validation,
+ org.eclipse.viatra.cep.vepl.formatting,
+ org.eclipse.viatra.cep.vepl.jvmmodel

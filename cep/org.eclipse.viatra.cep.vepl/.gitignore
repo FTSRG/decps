@@ -1,0 +1,10 @@
+bin
+plugin.xml_gen
+*.class
+*_trace
+src-gen
+xtend-gen
+model
+.settings
+.launch
+*.jar

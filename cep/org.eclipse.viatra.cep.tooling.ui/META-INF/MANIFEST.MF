@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: VIATRA-CEP Tooling UI
+Bundle-SymbolicName: org.eclipse.viatra.cep.tooling.ui;singleton:=true
+Bundle-Version: 0.7.0.qualifier
+Bundle-Activator: org.eclipse.viatra.cep.tooling.ui.internal.Activator
+Bundle-Vendor: Eclipse VIATRA Project
+Require-Bundle: org.eclipse.ui.ide,
+ org.eclipse.xtext.ui,
+ org.eclipse.viatra.cep.vepl.ui,
+ org.eclipse.jdt.ui,
+ org.eclipse.jdt.core,
+ org.apache.log4j,
+ org.eclipse.viatra.cep.tooling.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
