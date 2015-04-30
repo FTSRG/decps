@@ -3,7 +3,7 @@ package hu.bme.mit.inf.cps.patterns.util;
 import com.google.common.collect.Sets;
 import hu.bme.mit.inf.cps.patterns.UnsatisfiedRequirementMatch;
 import hu.bme.mit.inf.cps.patterns.UnsatisfiedRequirementMatcher;
-import hu.bme.mit.inf.cps.patterns.util.ApplicationInRequirementQuerySpecification;
+import hu.bme.mit.inf.cps.patterns.util.ApplicationsInRequirementQuerySpecification;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -106,7 +106,7 @@ public final class UnsatisfiedRequirementQuerySpecification extends BaseGenerate
       		new ExportedParameter(body, var_req, "req")
       	));
       	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "Requirement"), "http://cps/1.0/Requirement");
-      	new PatternMatchCounter(body, new FlatTuple(var_req, var___0_), ApplicationInRequirementQuerySpecification.instance().getInternalQueryRepresentation(), var__virtual_0_);
+      	new PatternMatchCounter(body, new FlatTuple(var_req, var___0_), ApplicationsInRequirementQuerySpecification.instance().getInternalQueryRepresentation(), var__virtual_0_);
       	new Equality(body, var_M, var__virtual_0_);
       	new TypeUnary(body, var_req, getClassifierLiteral("http://cps/1.0", "Requirement"), "http://cps/1.0/Requirement");
       	new TypeBinary(body, CONTEXT, var_req, var__virtual_1_, getFeatureLiteral("http://cps/1.0", "Requirement", "count"), "http://cps/1.0/Requirement.count");
