@@ -7,8 +7,8 @@ public class Device {
 	public String ram;
 	public String ip;
 	
-	public String hw_cpu;
-	public String hw_hdd;
-	public String hw_ram;
+	public int acpu;
+	public int ahdd;
+	public int aram;
 	
 }

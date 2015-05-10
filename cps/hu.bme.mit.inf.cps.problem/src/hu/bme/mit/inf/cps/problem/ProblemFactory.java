@@ -12,9 +12,6 @@ import hu.bme.mit.inf.cps.ResourceRequirement;
 import hu.bme.mit.inf.cps.State;
 import hu.bme.mit.inf.cps.rdf.RdfConnection;
 import hu.bme.mit.inf.cps.rdf.model.Application;
-import hu.bme.mit.inf.cps.rdf.model.AvailableCpu;
-import hu.bme.mit.inf.cps.rdf.model.AvailableHdd;
-import hu.bme.mit.inf.cps.rdf.model.AvailableRam;
 import hu.bme.mit.inf.cps.rdf.model.Device;
 import hu.bme.mit.inf.cps.sql.SqlConnection;
 import hu.bme.mit.inf.cps.sql.model.ApplicationTypeSql;
@@ -131,26 +128,9 @@ public class ProblemFactory {
 				hostInstance.setTotalHdd((int) (Float.parseFloat(d.hdd)));
 				hostInstance.setTotalMemory((int) (Float.parseFloat(d.ram)));
 
-				AvailableCpu availableCpu = con.askAvailableCpu(d.hw_cpu);
-				if (availableCpu.acpu != -1) {
-					hostInstance.setAvailableCpu(availableCpu.acpu);
-				} else {
-					hostInstance.setAvailableCpu(hostType.getDefaultCpu());
-				}
-				
-				AvailableHdd availableHdd = con.askAvailableHdd(d.hw_hdd);
-				if (availableHdd.ahdd != -1) {
-					hostInstance.setAvailableHdd(availableHdd.ahdd);
-				} else {
-					hostInstance.setAvailableHdd(hostType.getDefaultHdd());
-				}
-				
-				AvailableRam availableRam = con.askAvailableRam(d.hw_ram);
-				if (availableRam.aram != -1) {
-					hostInstance.setAvailableMemory(availableRam.aram);
-				} else {
-					hostInstance.setAvailableMemory(hostType.getDefaultMemory());
-				}
+				hostInstance.setAvailableCpu(d.acpu);
+				hostInstance.setAvailableHdd(d.ahdd);				
+				hostInstance.setAvailableMemory(d.aram);
 			}
 			hostType.getInstances().add(hostInstance);
 		}

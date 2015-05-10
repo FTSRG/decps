@@ -2,13 +2,8 @@ package hu.bme.mit.inf.cps.rdf;
 
 import hu.bme.mit.inf.cps.ApplicationInstance;
 import hu.bme.mit.inf.cps.rdf.model.Application;
-import hu.bme.mit.inf.cps.rdf.model.AvailableCpu;
-import hu.bme.mit.inf.cps.rdf.model.AvailableHdd;
-import hu.bme.mit.inf.cps.rdf.model.AvailableRam;
 import hu.bme.mit.inf.cps.rdf.model.Device;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,7 +25,7 @@ import org.slf4j.LoggerFactory;
 public class RdfConnection {
 
 	private static final String NAME = "name";
-	private static final String IP = "device";
+	private static final String IP = "deviceI";
 	private static final String CPU = "cpu";
 	private static final String HDD = "hdd";
 	private static final String RAM = "ram";
@@ -38,9 +33,9 @@ public class RdfConnection {
 	private static final String HW_HDD = "hw_hdd";
 	private static final String HW_RAM = "hw_ram";
 
-	private static final String AVAILABLE_CPU = "acpu";
-	private static final String AVAILABLE_HDD = "ahdd";
-	private static final String AVAILABLE_RAM = "aram";
+	private static final String AVAILABLE_CPU = "cpuAvailable";
+	private static final String AVAILABLE_HDD = "storageAvailable";
+	private static final String AVAILABLE_RAM = "memoryAvailable";
 
 	private static final String PWD = "9sliVU8E";
 	private static final String USER = "cps-rw";
@@ -83,6 +78,50 @@ public class RdfConnection {
 			"# Shutting down the application on the device\r\n" + 
 			"DELETE WHERE { <http://localhost:5820/sisro/data#:APPID> <http://purl.org/net/sisr/owl/application#runsOn> ?device . }\r\n";
 
+	public static final String ASK_DEVICE_TEMPLATE = "PREFIX soo: <http://purl.org/net/sisr/owl/observation#>\r\n" + 
+			"PREFIX tio: <http://purl.org/net/sisr/owl/time#>\r\n" + 
+			"PREFIX dedo: <http://purl.org/net/sisr/owl/dedo#> \r\n" + 
+			"\r\n" + 
+			"SELECT ?deviceId ?name ?hdd ?cpu ?ram ?maxtime ?memoryAvailable ?storageAvailable ?cpuAvailable\r\n" + 
+			"WHERE {\r\n" + 
+			"  ?deviceId <http://purl.org/net/sisr/owl/dedo#device-type> ?name .\r\n" + 
+			"  ?hw <http://purl.org/net/sisr/owl/dedo#isPartOf> ?device .\r\n" + 
+			"  ?hw_cpu <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw .\r\n" + 
+			"  ?hw_cpu rdf:type <http://purl.org/net/sisr/owl/dedo#CPU> .\r\n" + 
+			"  ?hw_cpu <http://purl.org/net/sisr/owl/dedo#cpu-computing-power> ?cpu .\r\n" + 
+			"  ?hw_ram <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw .\r\n" + 
+			"  ?hw_ram rdf:type <http://purl.org/net/sisr/owl/dedo#OperationalMemory> .\r\n" + 
+			"  ?hw_ram <http://purl.org/net/sisr/owl/dedo#operational-memory-capacity> ?ram .\r\n" + 
+			"  ?hw_hdd <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw .\r\n" + 
+			"  ?hw_hdd rdf:type <http://purl.org/net/sisr/owl/dedo#Storage> .\r\n" + 
+			"  ?hw_hdd <http://purl.org/net/sisr/owl/dedo#storage-capacity> ?hdd\r\n" + 
+			"  {\r\n" + 
+			"    SELECT ?deviceId (MAX(?time) AS ?maxtime)\r\n" + 
+			"    WHERE {\r\n" + 
+			"      ?obs rdf:type soo:Observation ;\r\n" + 
+			"         soo:hasProcedure ?deviceId ;\r\n" + 
+			"         soo:hasResultTime ?timeInstant .\r\n" + 
+			"      ?timeInstant tio:time-position ?time\r\n" + 
+			"    } GROUP BY ?deviceId\r\n" + 
+			"  }\r\n" + 
+			"  ?maxtimeInstant tio:time-position ?maxtime .\r\n" + 
+			"  ?obsMemory rdf:type soo:Observation ;\r\n" + 
+			"     soo:hasProcedure ?deviceId ;\r\n" + 
+			"     soo:hasResultTime ?maxtimeInstant ;\r\n" + 
+			"     soo:hasObservedProperty dedo:operational-memory-capacity-available ;\r\n" + 
+			"     soo:result-value ?memoryAvailable .\r\n" + 
+			"  ?obsStorage rdf:type soo:Observation ;\r\n" + 
+			"     soo:hasProcedure ?deviceId ;\r\n" + 
+			"     soo:hasResultTime ?maxtimeInstant ;\r\n" + 
+			"     soo:hasObservedProperty dedo:storage-capacity-available ;\r\n" + 
+			"     soo:result-value ?storageAvailable .\r\n" + 
+			"  ?obsCpu rdf:type soo:Observation ;\r\n" + 
+			"     soo:hasProcedure ?deviceId ;\r\n" + 
+			"     soo:hasResultTime ?maxtimeInstant ;\r\n" + 
+			"     soo:hasObservedProperty dedo:cpu-computing-power-available ;\r\n" + 
+			"     soo:result-value ?cpuAvailable .\r\n" + 
+			"}";
+	
 	private SPARQLRepository repo;
 	private RepositoryConnection conn;
 	private ValueFactory factory;
@@ -109,22 +148,7 @@ public class RdfConnection {
 		TupleQuery query = conn
 				.prepareTupleQuery(
 						QueryLanguage.SPARQL,
-						"select ?name ?device ?cpu ?hdd ?ram ?hw_cpu ?hw_ram ?hw_hdd"
-								+ "{"
-								+ "  ?device rdf:type <http://purl.org/net/sisr/owl/dedo#Device> ."
-								+ "  ?device <http://purl.org/net/sisr/owl/dedo#device-type> ?name ."
-								+ "  ?hw <http://purl.org/net/sisr/owl/dedo#isPartOf> ?device ."
-								+ ""
-								+ "  ?hw_cpu <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw ."
-								+ "  ?hw_cpu rdf:type <http://purl.org/net/sisr/owl/dedo#CPU> ."
-								+ "  ?hw_cpu <http://purl.org/net/sisr/owl/dedo#cpu-computing-power> ?cpu ."
-								+ "  ?hw_ram <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw ."
-								+ "  ?hw_ram rdf:type <http://purl.org/net/sisr/owl/dedo#OperationalMemory> ."
-								+ "  ?hw_ram <http://purl.org/net/sisr/owl/dedo#operational-memory-capacity> ?ram ."
-								+ "  ?hw_hdd <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw ."
-								+ "  ?hw_hdd rdf:type <http://purl.org/net/sisr/owl/dedo#Storage> ."
-								+ "  ?hw_hdd <http://purl.org/net/sisr/owl/dedo#storage-capacity> ?hdd"
-								+ "  " + "}");
+						ASK_DEVICE_TEMPLATE);
 
 		TupleQueryResult evaluate = query.evaluate();
 		Collection<Device> ret = new ArrayList<Device>();
@@ -141,98 +165,14 @@ public class RdfConnection {
 					.stringValue();
 			d.ram = device.getBinding(RdfConnection.RAM).getValue()
 					.stringValue();
-			 d.hw_hdd =
-			 device.getBinding(RdfConnection.HW_HDD).getValue().stringValue();
-			 d.hw_cpu =
-			 device.getBinding(RdfConnection.HW_CPU).getValue().stringValue();
-			 d.hw_ram =
-			 device.getBinding(RdfConnection.HW_RAM).getValue().stringValue();
+			d.ahdd =
+					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_HDD).getValue().stringValue());
+			d.acpu =
+					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_CPU).getValue().stringValue());
+			d.aram =
+					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_RAM).getValue().stringValue());
 			ret.add(d);
 		}
-		done();
-
-		return ret;
-	}
-
-	public AvailableCpu askAvailableCpu(String hw_cpu) throws Exception {
-		initialize();
-		TupleQuery query = conn
-				.prepareTupleQuery(
-						QueryLanguage.SPARQL,
-						"select ?acpu"
-								+ "{"
-								+ "  ?device rdf:type <http://purl.org/net/sisr/owl/dedo#Device> ."
-								+ "  ?hw <http://purl.org/net/sisr/owl/dedo#isPartOf> ?device ."
-								+ ""
-								+ "  ?hw_cpu <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw ."
-								+ "  ?hw_cpu rdf:type <http://purl.org/net/sisr/owl/dedo#CPU> ."
-								+ "  ?hw_cpu <http://purl.org/net/sisr/owl/dedo#cpu-computing-power-available> ?acpu"
-								+ "}");
-
-		TupleQueryResult evaluate = query.evaluate();
-		AvailableCpu ret = new AvailableCpu();
-		if (evaluate.hasNext())
-			ret.acpu = (int) Float.parseFloat(evaluate.next()
-					.getBinding(RdfConnection.AVAILABLE_CPU).getValue()
-					.stringValue());
-		else
-			ret.acpu = -1;
-		done();
-
-		return ret;
-	}
-
-	public AvailableHdd askAvailableHdd(String hw_hdd) throws Exception {
-		initialize();
-		TupleQuery query = conn
-				.prepareTupleQuery(
-						QueryLanguage.SPARQL,
-						"select ?ahdd"
-								+ "{"
-								+ "  ?device rdf:type <http://purl.org/net/sisr/owl/dedo#Device> ."
-								+ "  ?hw <http://purl.org/net/sisr/owl/dedo#isPartOf> ?device ."
-								+ ""
-								+ "  ?hw_hdd <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw ."
-								+ "  ?hw_hdd rdf:type <http://purl.org/net/sisr/owl/dedo#Storage> ."
-								+ "  ?hw_hdd <http://purl.org/net/sisr/owl/dedo#storage-capacity-available> ?ahdd"
-								+ "}");
-
-		TupleQueryResult evaluate = query.evaluate();
-		AvailableHdd ret = new AvailableHdd();
-		if (evaluate.hasNext())
-			ret.ahdd = (int) Float.parseFloat(evaluate.next()
-					.getBinding(RdfConnection.AVAILABLE_HDD).getValue()
-					.stringValue());
-		else
-			ret.ahdd = -1;
-		done();
-
-		return ret;
-	}
-
-	public AvailableRam askAvailableRam(String hw_ram) throws Exception {
-		initialize();
-		TupleQuery query = conn
-				.prepareTupleQuery(
-						QueryLanguage.SPARQL,
-						"select ?aram"
-								+ "{"
-								+ "  ?device rdf:type <http://purl.org/net/sisr/owl/dedo#Device> ."
-								+ "  ?hw <http://purl.org/net/sisr/owl/dedo#isPartOf> ?device ."
-								+ ""
-								+ "  ?hw_ram <http://purl.org/net/sisr/owl/dedo#isPartOf> ?hw ."
-								+ "  ?hw_ram rdf:type <http://purl.org/net/sisr/owl/dedo#OperationalMemory> ."
-								+ "  ?hw_ram <http://purl.org/net/sisr/owl/dedo#operational-memory-capacity> ?aram"
-								+ "}");
-
-		TupleQueryResult evaluate = query.evaluate();
-		AvailableRam ret = new AvailableRam();
-		if (evaluate.hasNext())
-			ret.aram = (int) Float.parseFloat(evaluate.next()
-					.getBinding(RdfConnection.AVAILABLE_RAM).getValue()
-					.stringValue());
-		else
-			ret.aram = -1;
 		done();
 
 		return ret;
