@@ -30,13 +30,19 @@ public class CPSRestServices implements ICPSRestServices {
 	@Produces("text/plain")
 	public String getFullDataModel(@QueryParam("callback")String callback) throws Exception {
 		Component component = Component.instance();
+		component.initializeProblem();
 		CyberPhysicalSystem cyberPhysicalSystem = component.getCyberPhysicalSystem();
 		JSONArray json = new JSONArray();
 		
-		List<HostType> applicationTypes = Lists.newArrayList(cyberPhysicalSystem.getHostTypes());
-		List<HostInstance> appInst = Lists.newArrayList();
-		
-		for (HostInstance host : appInst) {
+		if(cyberPhysicalSystem == null) return "";
+		List<HostType> hostTypes = Lists.newArrayList(cyberPhysicalSystem.getHostTypes());
+		List<HostInstance> hostInst = Lists.newArrayList();
+		for (HostType type : hostTypes) {
+			for (HostInstance i : type.getInstances()) {
+				hostInst.add(i);
+			}
+		}
+		for (HostInstance host : hostInst) {
 			JSONObject hostJson = new JSONObject();
 			hostJson.put("id", host.getId());
 			hostJson.put("type", host.getType().getId());
@@ -85,7 +91,7 @@ public class CPSRestServices implements ICPSRestServices {
 	@Override
 	@GET
 	@Path("/hosts")
-	@Produces("application/javascript")
+	@Produces("text/plain")
 	public String getHostTypes(@QueryParam("callback")String callback) {
 		try {
 			RdfConnection con = new RdfConnection();
