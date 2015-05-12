@@ -22,21 +22,37 @@ import org.eclipse.incquery.runtime.exception.IncQueryException;
  */
 @SuppressWarnings("all")
 public abstract class NotExistUnsatisfiedRequirementMatch extends BasePatternMatch {
-  private static List<String> parameterNames = makeImmutableList();
+  private Integer fX;
   
-  private NotExistUnsatisfiedRequirementMatch() {
-    
+  private static List<String> parameterNames = makeImmutableList("x");
+  
+  private NotExistUnsatisfiedRequirementMatch(final Integer pX) {
+    this.fX = pX;
   }
   
   @Override
   public Object get(final String parameterName) {
+    if ("x".equals(parameterName)) return this.fX;
     return null;
+  }
+  
+  public Integer getX() {
+    return this.fX;
   }
   
   @Override
   public boolean set(final String parameterName, final Object newValue) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    if ("x".equals(parameterName) ) {
+    	this.fX = (java.lang.Integer) newValue;
+    	return true;
+    }
     return false;
+  }
+  
+  public void setX(final Integer pX) {
+    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    this.fX = pX;
   }
   
   @Override
@@ -51,23 +67,27 @@ public abstract class NotExistUnsatisfiedRequirementMatch extends BasePatternMat
   
   @Override
   public Object[] toArray() {
-    return new Object[]{};
+    return new Object[]{fX};
   }
   
   @Override
   public NotExistUnsatisfiedRequirementMatch toImmutable() {
-    return isMutable() ? newMatch() : this;
+    return isMutable() ? newMatch(fX) : this;
   }
   
   @Override
   public String prettyPrint() {
-    return "[]";
+    StringBuilder result = new StringBuilder();
+    result.append("\"x\"=" + prettyPrintValue(fX)
+    );
+    return result.toString();
   }
   
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
+    result = prime * result + ((fX == null) ? 0 : fX.hashCode());
     return result;
   }
   
@@ -87,6 +107,9 @@ public abstract class NotExistUnsatisfiedRequirementMatch extends BasePatternMat
     		return false;
     	return Arrays.deepEquals(toArray(), otherSig.toArray());
     }
+    NotExistUnsatisfiedRequirementMatch other = (NotExistUnsatisfiedRequirementMatch) obj;
+    if (fX == null) {if (other.fX != null) return false;}
+    else if (!fX.equals(other.fX)) return false;
     return true;
   }
   
@@ -108,34 +131,36 @@ public abstract class NotExistUnsatisfiedRequirementMatch extends BasePatternMat
    * 
    */
   public static NotExistUnsatisfiedRequirementMatch newEmptyMatch() {
-    return new Mutable();
+    return new Mutable(null);
   }
   
   /**
    * Returns a mutable (partial) match.
    * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
    * 
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
    * @return the new, mutable (partial) match object.
    * 
    */
-  public static NotExistUnsatisfiedRequirementMatch newMutableMatch() {
-    return new Mutable();
+  public static NotExistUnsatisfiedRequirementMatch newMutableMatch(final Integer pX) {
+    return new Mutable(pX);
   }
   
   /**
    * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public static NotExistUnsatisfiedRequirementMatch newMatch() {
-    return new Immutable();
+  public static NotExistUnsatisfiedRequirementMatch newMatch(final Integer pX) {
+    return new Immutable(pX);
   }
   
   private static final class Mutable extends NotExistUnsatisfiedRequirementMatch {
-    Mutable() {
-      super();
+    Mutable(final Integer pX) {
+      super(pX);
     }
     
     @Override
@@ -145,8 +170,8 @@ public abstract class NotExistUnsatisfiedRequirementMatch extends BasePatternMat
   }
   
   private static final class Immutable extends NotExistUnsatisfiedRequirementMatch {
-    Immutable() {
-      super();
+    Immutable(final Integer pX) {
+      super(pX);
     }
     
     @Override

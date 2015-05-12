@@ -2,7 +2,8 @@ package hu.bme.mit.inf.cps.patterns
 
 import "http://cps/1.0"
 
-pattern allApplicationInstanceIsRunning() {
+pattern allApplicationInstanceIsRunning(x) {
+	x == 1;
 	neg find notRunningApp(_);
 }
 
@@ -14,7 +15,8 @@ pattern runningApp(appInst : ApplicationInstance) {
 	ApplicationInstance.state(appInst, ::Running);
 }
 
-pattern notExistUnsatisfiedRequirement() {
+pattern notExistUnsatisfiedRequirement(x) {
+	x == 1;
 	neg find unsatisfiedRequirement(_);
 }
 
@@ -43,7 +45,8 @@ pattern requirementHasAllApp(req : Requirement){
 
 // **** Allocations **** //
 
-pattern noUnallocatedApps() {
+pattern noUnallocatedApps(x) {
+	x == 1;
 	neg find unallocatedApp(_,_);
 }
 

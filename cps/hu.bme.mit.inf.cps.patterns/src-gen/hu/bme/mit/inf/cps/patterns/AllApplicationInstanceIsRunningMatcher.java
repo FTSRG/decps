@@ -2,8 +2,12 @@ package hu.bme.mit.inf.cps.patterns;
 
 import hu.bme.mit.inf.cps.patterns.AllApplicationInstanceIsRunningMatch;
 import hu.bme.mit.inf.cps.patterns.util.AllApplicationInstanceIsRunningQuerySpecification;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import org.eclipse.incquery.runtime.api.IQuerySpecification;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseMatcher;
@@ -22,7 +26,8 @@ import org.eclipse.incquery.runtime.util.IncQueryLoggingUtil;
  * 
  * <p>Original source:
  * <code><pre>
- * pattern allApplicationInstanceIsRunning() {
+ * pattern allApplicationInstanceIsRunning(x) {
+ * 	x == 1;
  * 	neg find notRunningApp(_);
  * }
  * </pre></code>
@@ -51,6 +56,8 @@ public class AllApplicationInstanceIsRunningMatcher extends BaseMatcher<AllAppli
     }
     return matcher;
   }
+  
+  private final static int POSITION_X = 0;
   
   private final static Logger LOGGER = IncQueryLoggingUtil.getLogger(AllApplicationInstanceIsRunningMatcher.class);
   
@@ -86,18 +93,105 @@ public class AllApplicationInstanceIsRunningMatcher extends BaseMatcher<AllAppli
   }
   
   /**
-   * Indicates whether the (parameterless) pattern matches or not.
-   * @return true if the pattern has a valid match.
+   * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @return matches represented as a AllApplicationInstanceIsRunningMatch object.
    * 
    */
-  public boolean hasMatch() {
-    return rawHasMatch(new Object[]{});
+  public Collection<AllApplicationInstanceIsRunningMatch> getAllMatches(final Integer pX) {
+    return rawGetAllMatches(new Object[]{pX});
+  }
+  
+  /**
+   * Returns an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
+   * Neither determinism nor randomness of selection is guaranteed.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @return a match represented as a AllApplicationInstanceIsRunningMatch object, or null if no match is found.
+   * 
+   */
+  public AllApplicationInstanceIsRunningMatch getOneArbitraryMatch(final Integer pX) {
+    return rawGetOneArbitraryMatch(new Object[]{pX});
+  }
+  
+  /**
+   * Indicates whether the given combination of specified pattern parameters constitute a valid pattern match,
+   * under any possible substitution of the unspecified parameters (if any).
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @return true if the input is a valid (partial) match of the pattern.
+   * 
+   */
+  public boolean hasMatch(final Integer pX) {
+    return rawHasMatch(new Object[]{pX});
+  }
+  
+  /**
+   * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @return the number of pattern matches found.
+   * 
+   */
+  public int countMatches(final Integer pX) {
+    return rawCountMatches(new Object[]{pX});
+  }
+  
+  /**
+   * Executes the given processor on each match of the pattern that conforms to the given fixed values of some parameters.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @param processor the action that will process each pattern match.
+   * 
+   */
+  public void forEachMatch(final Integer pX, final IMatchProcessor<? super AllApplicationInstanceIsRunningMatch> processor) {
+    rawForEachMatch(new Object[]{pX}, processor);
+  }
+  
+  /**
+   * Executes the given processor on an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
+   * Neither determinism nor randomness of selection is guaranteed.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @param processor the action that will process the selected match.
+   * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
+   * 
+   */
+  public boolean forOneArbitraryMatch(final Integer pX, final IMatchProcessor<? super AllApplicationInstanceIsRunningMatch> processor) {
+    return rawForOneArbitraryMatch(new Object[]{pX}, processor);
+  }
+  
+  /**
+   * Returns a new (partial) match.
+   * This can be used e.g. to call the matcher with a partial match.
+   * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pX the fixed value of pattern parameter x, or null if not bound.
+   * @return the (partial) match object.
+   * 
+   */
+  public AllApplicationInstanceIsRunningMatch newMatch(final Integer pX) {
+    return AllApplicationInstanceIsRunningMatch.newMatch(pX);
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for x.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  protected Set<Integer> rawAccumulateAllValuesOfx(final Object[] parameters) {
+    Set<Integer> results = new HashSet<Integer>();
+    rawAccumulateAllValues(POSITION_X, parameters, results);
+    return results;
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for x.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<Integer> getAllValuesOfx() {
+    return rawAccumulateAllValuesOfx(emptyArray());
   }
   
   @Override
   protected AllApplicationInstanceIsRunningMatch tupleToMatch(final Tuple t) {
     try {
-    	return AllApplicationInstanceIsRunningMatch.newMatch();
+    	return AllApplicationInstanceIsRunningMatch.newMatch((java.lang.Integer) t.get(POSITION_X));
     } catch(ClassCastException e) {
     	LOGGER.error("Element(s) in tuple not properly typed!",e);
     	return null;
@@ -107,7 +201,7 @@ public class AllApplicationInstanceIsRunningMatcher extends BaseMatcher<AllAppli
   @Override
   protected AllApplicationInstanceIsRunningMatch arrayToMatch(final Object[] match) {
     try {
-    	return AllApplicationInstanceIsRunningMatch.newMatch();
+    	return AllApplicationInstanceIsRunningMatch.newMatch((java.lang.Integer) match[POSITION_X]);
     } catch(ClassCastException e) {
     	LOGGER.error("Element(s) in array not properly typed!",e);
     	return null;
@@ -117,7 +211,7 @@ public class AllApplicationInstanceIsRunningMatcher extends BaseMatcher<AllAppli
   @Override
   protected AllApplicationInstanceIsRunningMatch arrayToMatchMutable(final Object[] match) {
     try {
-    	return AllApplicationInstanceIsRunningMatch.newMutableMatch();
+    	return AllApplicationInstanceIsRunningMatch.newMutableMatch((java.lang.Integer) match[POSITION_X]);
     } catch(ClassCastException e) {
     	LOGGER.error("Element(s) in array not properly typed!",e);
     	return null;

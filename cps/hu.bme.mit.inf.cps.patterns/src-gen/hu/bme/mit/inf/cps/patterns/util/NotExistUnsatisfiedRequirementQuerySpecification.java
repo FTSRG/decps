@@ -13,8 +13,10 @@ import org.eclipse.incquery.runtime.api.impl.BaseGeneratedEMFQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitializationException;
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
@@ -57,7 +59,7 @@ public final class NotExistUnsatisfiedRequirementQuerySpecification extends Base
   
   @Override
   public NotExistUnsatisfiedRequirementMatch newMatch(final Object... parameters) {
-    return NotExistUnsatisfiedRequirementMatch.newMatch();
+    return NotExistUnsatisfiedRequirementMatch.newMatch((java.lang.Integer) parameters[0]);
   }
   
   private static class LazyHolder {
@@ -78,12 +80,12 @@ public final class NotExistUnsatisfiedRequirementQuerySpecification extends Base
     
     @Override
     public List<String> getParameterNames() {
-      return Arrays.asList();
+      return Arrays.asList("x");
     }
     
     @Override
     public List<PParameter> getParameters() {
-      return Arrays.asList();
+      return Arrays.asList(new PParameter("x", "java.lang.Integer"));
     }
     
     @Override
@@ -92,9 +94,14 @@ public final class NotExistUnsatisfiedRequirementQuerySpecification extends Base
       try {
       {
       	PBody body = new PBody(this);
+      	PVariable var_x = body.getOrCreateVariableByName("x");
+      	PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       	PVariable var___0_ = body.getOrCreateVariableByName("_<0>");
       	body.setExportedParameters(Arrays.<ExportedParameter>asList(
+      		new ExportedParameter(body, var_x, "x")
       	));
+      	new ConstantValue(body, var__virtual_0_, 1);
+      	new Equality(body, var_x, var__virtual_0_);
       	new NegativePatternCall(body, new FlatTuple(var___0_), UnsatisfiedRequirementQuerySpecification.instance().getInternalQueryRepresentation());
       	bodies.add(body);
       }
