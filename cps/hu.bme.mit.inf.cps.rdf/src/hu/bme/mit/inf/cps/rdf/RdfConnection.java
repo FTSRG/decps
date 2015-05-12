@@ -2,8 +2,13 @@ package hu.bme.mit.inf.cps.rdf;
 
 import hu.bme.mit.inf.cps.ApplicationInstance;
 import hu.bme.mit.inf.cps.rdf.model.Application;
+import hu.bme.mit.inf.cps.rdf.model.AvailableCpu;
+import hu.bme.mit.inf.cps.rdf.model.AvailableHdd;
+import hu.bme.mit.inf.cps.rdf.model.AvailableRam;
 import hu.bme.mit.inf.cps.rdf.model.Device;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class RdfConnection {
 
 	private static final String NAME = "name";
-	private static final String IP = "deviceI";
+	private static final String IP = "deviceId";
 	private static final String CPU = "cpu";
 	private static final String HDD = "hdd";
 	private static final String RAM = "ram";
@@ -166,16 +171,21 @@ public class RdfConnection {
 			d.ram = device.getBinding(RdfConnection.RAM).getValue()
 					.stringValue();
 			d.ahdd =
-					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_HDD).getValue().stringValue());
+					calculateAvailable(device, RdfConnection.AVAILABLE_HDD, d.hdd);
 			d.acpu =
-					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_CPU).getValue().stringValue());
+					calculateAvailable(device, RdfConnection.AVAILABLE_CPU, d.cpu);
 			d.aram =
-					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_RAM).getValue().stringValue());
+					calculateAvailable(device, RdfConnection.AVAILABLE_RAM, d.ram);
 			ret.add(d);
 		}
 		done();
 
 		return ret;
+	}
+
+	private int calculateAvailable(BindingSet device, String value, String hdd) {
+		int percentage = 100 - (int) Double.parseDouble(device.getBinding(value).getValue().stringValue());
+		return (int) (Double.parseDouble(hdd) * percentage / 100.0);
 	}
 
 	public String hostTypes() throws Exception {
