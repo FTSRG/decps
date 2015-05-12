@@ -160,10 +160,10 @@ public class RdfConnection {
 		while (evaluate.hasNext()) {
 			BindingSet device = evaluate.next();
 			Device d = new Device();
-			d.name = device.getBinding(RdfConnection.NAME).getValue()
-					.stringValue();
 			d.ip = device.getBinding(RdfConnection.IP).getValue().stringValue()
 					.replace(PREFIX, "");
+			d.name = d.ip + "\n" + device.getBinding(RdfConnection.NAME).getValue()
+					.stringValue();
 			d.hdd = device.getBinding(RdfConnection.HDD).getValue()
 					.stringValue();
 			d.cpu = device.getBinding(RdfConnection.CPU).getValue()
