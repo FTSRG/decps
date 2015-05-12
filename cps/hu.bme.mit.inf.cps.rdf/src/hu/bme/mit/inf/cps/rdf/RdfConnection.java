@@ -173,9 +173,9 @@ public class RdfConnection {
 			d.ahdd =
 					calculateAvailable(device, RdfConnection.AVAILABLE_HDD, d.hdd);
 			d.acpu =
-					calculateAvailable(device, RdfConnection.AVAILABLE_CPU, d.cpu);
+					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_CPU).getValue().stringValue());
 			d.aram =
-					calculateAvailable(device, RdfConnection.AVAILABLE_RAM, d.ram);
+					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_RAM).getValue().stringValue());
 			ret.add(d);
 		}
 		done();
@@ -184,7 +184,7 @@ public class RdfConnection {
 	}
 
 	private int calculateAvailable(BindingSet device, String value, String hdd) {
-		int percentage = 100 - (int) Double.parseDouble(device.getBinding(value).getValue().stringValue());
+		int percentage = (int) Double.parseDouble(device.getBinding(value).getValue().stringValue());
 		return (int) (Double.parseDouble(hdd) * percentage / 100.0);
 	}
 
