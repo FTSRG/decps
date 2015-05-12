@@ -171,9 +171,9 @@ public class RdfConnection {
 			d.ram = device.getBinding(RdfConnection.RAM).getValue()
 					.stringValue();
 			d.ahdd =
-					calculateAvailable(device, RdfConnection.AVAILABLE_HDD, d.hdd);
+					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_HDD).getValue().stringValue());
 			d.acpu =
-					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_CPU).getValue().stringValue());
+					calculateAvailable(device, RdfConnection.AVAILABLE_CPU, d.cpu);
 			d.aram =
 					(int) Double.parseDouble(device.getBinding(RdfConnection.AVAILABLE_RAM).getValue().stringValue());
 			ret.add(d);
