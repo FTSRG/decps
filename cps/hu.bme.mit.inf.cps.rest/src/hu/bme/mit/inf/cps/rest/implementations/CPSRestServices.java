@@ -44,7 +44,7 @@ public class CPSRestServices implements ICPSRestServices {
 		}
 		for (HostInstance host : hostInst) {
 			JSONObject hostJson = new JSONObject();
-			hostJson.put("id", host.getId());
+			hostJson.put("id", host.getId() + "\n" + host.getNodeIp());
 			hostJson.put("type", host.getType().getId());
 			hostJson.put("availableCpu", host.getAvailableCpu());
 			hostJson.put("availableHdd", host.getAvailableHdd());
