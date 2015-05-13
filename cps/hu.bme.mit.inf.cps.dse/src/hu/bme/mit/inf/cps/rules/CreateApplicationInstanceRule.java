@@ -17,6 +17,7 @@ public class CreateApplicationInstanceRule extends
 		instance.setDbPassword(pReq.getRequest().getPassword());
 		instance.setDbUser(pReq.getRequest().getUser());
 		instance.setId(pReq.getId() + "-" + pReq.getType().getId() + "-" + pReq.getInstances().size());
+		instance.setArgs(pReq.getArgs());
 	}
 	
 }
