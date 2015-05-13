@@ -162,7 +162,7 @@ public class RdfConnection {
 			Device d = new Device();
 			d.ip = device.getBinding(RdfConnection.IP).getValue().stringValue()
 					.replace(PREFIX, "");
-			d.name = d.ip + "\n" + device.getBinding(RdfConnection.NAME).getValue()
+			d.name = device.getBinding(RdfConnection.NAME).getValue()
 					.stringValue();
 			d.hdd = device.getBinding(RdfConnection.HDD).getValue()
 					.stringValue();

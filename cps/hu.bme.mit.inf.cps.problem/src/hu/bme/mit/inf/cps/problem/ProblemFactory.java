@@ -97,6 +97,7 @@ public class ProblemFactory {
 				Request request = mapRequest.get(fullId.split("-")[0]);
 				for (Requirement req : request.getRequirements()) {
 					if(req.getType() == appInstance.getType())
+						appInstance.setArgs(req.getArgs());
 						req.getInstances().add(appInstance);
 				}
 			}			
@@ -158,7 +159,7 @@ public class ProblemFactory {
 			request.setId(String.valueOf(requestSql.id));
 			request.setPassword(requestSql.password);
 			request.setUser(requestSql.username);
-			request.setDbname(requestSql.db_name);				
+			request.setDbname(requestSql.db_name);
 			cps.getRequests().add(request);
 			
 			reqMap.put(requestSql.id, request);
@@ -193,6 +194,7 @@ public class ProblemFactory {
 				Requirement requirement = CpsFactory.eINSTANCE.createRequirement();
 				requirement.setCount(reqSql.count);
 				requirement.setType(applicationType);
+				requirement.setArgs(reqSql.args);
 				
 				Request request = reqMap.get(reqSql.req);
 				requirement.setId(request.getId());

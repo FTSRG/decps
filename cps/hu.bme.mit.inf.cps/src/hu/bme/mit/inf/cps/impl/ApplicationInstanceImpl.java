@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hu.bme.mit.inf.cps.impl.ApplicationInstanceImpl#getDbUser <em>Db User</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.impl.ApplicationInstanceImpl#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.impl.ApplicationInstanceImpl#getDbName <em>Db Name</em>}</li>
+ *   <li>{@link hu.bme.mit.inf.cps.impl.ApplicationInstanceImpl#getArgs <em>Args</em>}</li>
  * </ul>
  * </p>
  *
@@ -166,6 +167,26 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected String dbName = DB_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getArgs() <em>Args</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArgs()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ARGS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getArgs() <em>Args</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArgs()
+	 * @generated
+	 * @ordered
+	 */
+	protected String args = ARGS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -361,6 +382,27 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getArgs() {
+		return args;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setArgs(String newArgs) {
+		String oldArgs = args;
+		args = newArgs;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CpsPackage.APPLICATION_INSTANCE__ARGS, oldArgs, args));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -429,6 +471,8 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 				return getDbPassword();
 			case CpsPackage.APPLICATION_INSTANCE__DB_NAME:
 				return getDbName();
+			case CpsPackage.APPLICATION_INSTANCE__ARGS:
+				return getArgs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -468,6 +512,9 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 			case CpsPackage.APPLICATION_INSTANCE__DB_NAME:
 				setDbName((String)newValue);
 				return;
+			case CpsPackage.APPLICATION_INSTANCE__ARGS:
+				setArgs((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -504,6 +551,9 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 			case CpsPackage.APPLICATION_INSTANCE__DB_NAME:
 				setDbName(DB_NAME_EDEFAULT);
 				return;
+			case CpsPackage.APPLICATION_INSTANCE__ARGS:
+				setArgs(ARGS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -532,6 +582,8 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 				return DB_PASSWORD_EDEFAULT == null ? dbPassword != null : !DB_PASSWORD_EDEFAULT.equals(dbPassword);
 			case CpsPackage.APPLICATION_INSTANCE__DB_NAME:
 				return DB_NAME_EDEFAULT == null ? dbName != null : !DB_NAME_EDEFAULT.equals(dbName);
+			case CpsPackage.APPLICATION_INSTANCE__ARGS:
+				return ARGS_EDEFAULT == null ? args != null : !ARGS_EDEFAULT.equals(args);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -556,6 +608,8 @@ public class ApplicationInstanceImpl extends MinimalEObjectImpl.Container implem
 		result.append(dbPassword);
 		result.append(", dbName: ");
 		result.append(dbName);
+		result.append(", args: ");
+		result.append(args);
 		result.append(')');
 		return result.toString();
 	}

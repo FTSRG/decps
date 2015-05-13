@@ -2,11 +2,9 @@
  */
 package hu.bme.mit.inf.cps.impl;
 
-import hu.bme.mit.inf.cps.ApplicationInstance;
 import hu.bme.mit.inf.cps.ApplicationType;
 import hu.bme.mit.inf.cps.CpsPackage;
 import hu.bme.mit.inf.cps.CyberPhysicalSystem;
-import hu.bme.mit.inf.cps.HostInstance;
 import hu.bme.mit.inf.cps.HostType;
 import hu.bme.mit.inf.cps.Request;
 import java.util.Collection;
@@ -19,9 +17,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.incquery.querybasedfeatures.runtime.IQueryBasedFeatureHandler;
-import org.eclipse.incquery.querybasedfeatures.runtime.QueryBasedFeatureKind;
-import org.eclipse.incquery.querybasedfeatures.runtime.QueryBasedFeatureHelper;
 
 /**
  * <!-- begin-user-doc -->

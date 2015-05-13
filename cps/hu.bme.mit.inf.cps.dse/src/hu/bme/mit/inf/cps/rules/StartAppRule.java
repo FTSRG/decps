@@ -43,6 +43,8 @@ public class StartAppRule extends StartInstanceProcessor implements ICyberPhysic
 			Element commandType = doc.createElement("commandType");
 			Element nodeIp = doc.createElement("nodeIp");
 			Element sshPort = doc.createElement("sshPort");
+			Element appName = doc.createElement("appName");
+			Element args = doc.createElement("cmdArgs");
 			Element exeFileUrl = doc.createElement("exeFileUrl");
 			Element exeType = doc.createElement("exeType");
 			Element dbUrl = doc.createElement("dbUrl");
@@ -53,6 +55,8 @@ public class StartAppRule extends StartInstanceProcessor implements ICyberPhysic
 			installCommand.appendChild(commandType);
 			installCommand.appendChild(nodeIp);
 			installCommand.appendChild(sshPort);
+			installCommand.appendChild(appName);
+			installCommand.appendChild(args);
 			installCommand.appendChild(exeFileUrl);
 			installCommand.appendChild(exeType);
 			installCommand.appendChild(dbUrl);
@@ -62,6 +66,8 @@ public class StartAppRule extends StartInstanceProcessor implements ICyberPhysic
 			commandType.setTextContent("true");
 			nodeIp.setTextContent(m.getAppInstance().getAllocatedTo().get(0).getNodeIp().split(":")[0]);
 			sshPort.setTextContent(m.getAppInstance().getAllocatedTo().get(0).getNodeIp().split(":")[1]);
+			appName.setTextContent(m.getAppInstance().getType().getId());
+			args.setTextContent(m.getAppInstance().getArgs());
 			exeFileUrl.setTextContent(m.getAppInstance().getType().getExeFileUrl());
 			exeType.setTextContent(m.getAppInstance().getType().getExeType());
 			dbUrl.setTextContent(m.getAppInstance().getType().getCps().getDbUrl());

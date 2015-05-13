@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link hu.bme.mit.inf.cps.impl.RequirementImpl#getInstances <em>Instances</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.impl.RequirementImpl#getRequest <em>Request</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.impl.RequirementImpl#getCount <em>Count</em>}</li>
+ *   <li>{@link hu.bme.mit.inf.cps.impl.RequirementImpl#getArgs <em>Args</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,6 +102,26 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 	 * @ordered
 	 */
 	protected int count = COUNT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getArgs() <em>Args</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArgs()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ARGS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getArgs() <em>Args</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArgs()
+	 * @generated
+	 * @ordered
+	 */
+	protected String args = ARGS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,6 +280,27 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getArgs() {
+		return args;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setArgs(String newArgs) {
+		String oldArgs = args;
+		args = newArgs;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CpsPackage.REQUIREMENT__ARGS, oldArgs, args));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -317,6 +359,8 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 				return getRequest();
 			case CpsPackage.REQUIREMENT__COUNT:
 				return getCount();
+			case CpsPackage.REQUIREMENT__ARGS:
+				return getArgs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -346,6 +390,9 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 			case CpsPackage.REQUIREMENT__COUNT:
 				setCount((Integer)newValue);
 				return;
+			case CpsPackage.REQUIREMENT__ARGS:
+				setArgs((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -373,6 +420,9 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 			case CpsPackage.REQUIREMENT__COUNT:
 				setCount(COUNT_EDEFAULT);
 				return;
+			case CpsPackage.REQUIREMENT__ARGS:
+				setArgs(ARGS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -395,6 +445,8 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 				return getRequest() != null;
 			case CpsPackage.REQUIREMENT__COUNT:
 				return count != COUNT_EDEFAULT;
+			case CpsPackage.REQUIREMENT__ARGS:
+				return ARGS_EDEFAULT == null ? args != null : !ARGS_EDEFAULT.equals(args);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -413,6 +465,8 @@ public class RequirementImpl extends MinimalEObjectImpl.Container implements Req
 		result.append(id);
 		result.append(", count: ");
 		result.append(count);
+		result.append(", args: ");
+		result.append(args);
 		result.append(')');
 		return result.toString();
 	}

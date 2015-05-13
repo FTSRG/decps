@@ -445,6 +445,15 @@ public class CpsPackageImpl extends EPackageImpl implements CpsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getApplicationInstance_Args() {
+		return (EAttribute)applicationInstanceEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getHostInstance() {
 		return hostInstanceEClass;
 	}
@@ -652,6 +661,15 @@ public class CpsPackageImpl extends EPackageImpl implements CpsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRequirement_Args() {
+		return (EAttribute)requirementEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getState() {
 		return stateEEnum;
 	}
@@ -719,6 +737,7 @@ public class CpsPackageImpl extends EPackageImpl implements CpsPackage {
 		createEAttribute(applicationInstanceEClass, APPLICATION_INSTANCE__DB_USER);
 		createEAttribute(applicationInstanceEClass, APPLICATION_INSTANCE__DB_PASSWORD);
 		createEAttribute(applicationInstanceEClass, APPLICATION_INSTANCE__DB_NAME);
+		createEAttribute(applicationInstanceEClass, APPLICATION_INSTANCE__ARGS);
 
 		hostInstanceEClass = createEClass(HOST_INSTANCE);
 		createEReference(hostInstanceEClass, HOST_INSTANCE__TYPE);
@@ -746,6 +765,7 @@ public class CpsPackageImpl extends EPackageImpl implements CpsPackage {
 		createEReference(requirementEClass, REQUIREMENT__INSTANCES);
 		createEReference(requirementEClass, REQUIREMENT__REQUEST);
 		createEAttribute(requirementEClass, REQUIREMENT__COUNT);
+		createEAttribute(requirementEClass, REQUIREMENT__ARGS);
 
 		// Create enums
 		stateEEnum = createEEnum(STATE);
@@ -822,6 +842,7 @@ public class CpsPackageImpl extends EPackageImpl implements CpsPackage {
 		initEAttribute(getApplicationInstance_DbUser(), ecorePackage.getEString(), "dbUser", null, 0, 1, ApplicationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplicationInstance_DbPassword(), ecorePackage.getEString(), "dbPassword", null, 0, 1, ApplicationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplicationInstance_DbName(), ecorePackage.getEString(), "dbName", null, 0, 1, ApplicationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplicationInstance_Args(), ecorePackage.getEString(), "args", null, 0, 1, ApplicationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hostInstanceEClass, HostInstance.class, "HostInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHostInstance_Type(), this.getHostType(), this.getHostType_Instances(), "type", null, 1, 1, HostInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -849,6 +870,7 @@ public class CpsPackageImpl extends EPackageImpl implements CpsPackage {
 		initEReference(getRequirement_Instances(), this.getApplicationInstance(), null, "instances", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRequirement_Request(), this.getRequest(), this.getRequest_Requirements(), "request", null, 1, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRequirement_Count(), ecorePackage.getEInt(), "count", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRequirement_Args(), ecorePackage.getEString(), "args", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(stateEEnum, State.class, "State");

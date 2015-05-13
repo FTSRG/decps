@@ -49,6 +49,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HostInstance" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//HostType"
@@ -87,5 +88,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="request" lowerBound="1"
         eType="#//Request" eOpposite="#//Request/requirements"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -19,6 +19,7 @@ public class SqlConnection {
 	private static final String EXE = "exeFileUrl";
 	private static final String TYPE = "exeFileType";
 	private static final String ZIP = "zipFileUrl";
+	private static final String ARGS = "args";
 	
 	private static final String HOST = "host";
 	private static final String CPU = "required_cpu";
@@ -83,6 +84,7 @@ public class SqlConnection {
 			RequestRequirementSql requestSql = new RequestRequirementSql();
 			requestSql.req = resultSet.getInt(SqlConnection.ID);
 			requestSql.count = (resultSet.getInt(SqlConnection.COUNT));
+			requestSql.args = resultSet.getString(SqlConnection.ARGS);
 			ret.add(requestSql);
 		}
 		done();

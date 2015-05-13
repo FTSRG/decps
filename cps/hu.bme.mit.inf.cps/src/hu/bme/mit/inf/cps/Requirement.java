@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hu.bme.mit.inf.cps.Requirement#getInstances <em>Instances</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.Requirement#getRequest <em>Request</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.Requirement#getCount <em>Count</em>}</li>
+ *   <li>{@link hu.bme.mit.inf.cps.Requirement#getArgs <em>Args</em>}</li>
  * </ul>
  * </p>
  *
@@ -119,5 +120,31 @@ public interface Requirement extends Identifiable {
 	 * @generated
 	 */
 	void setCount(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Args</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Args</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Args</em>' attribute.
+	 * @see #setArgs(String)
+	 * @see hu.bme.mit.inf.cps.CpsPackage#getRequirement_Args()
+	 * @model
+	 * @generated
+	 */
+	String getArgs();
+
+	/**
+	 * Sets the value of the '{@link hu.bme.mit.inf.cps.Requirement#getArgs <em>Args</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Args</em>' attribute.
+	 * @see #getArgs()
+	 * @generated
+	 */
+	void setArgs(String value);
 
 } // Requirement

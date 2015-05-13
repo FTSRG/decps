@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hu.bme.mit.inf.cps.ApplicationInstance#getDbUser <em>Db User</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.ApplicationInstance#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link hu.bme.mit.inf.cps.ApplicationInstance#getDbName <em>Db Name</em>}</li>
+ *   <li>{@link hu.bme.mit.inf.cps.ApplicationInstance#getArgs <em>Args</em>}</li>
  * </ul>
  * </p>
  *
@@ -195,5 +196,31 @@ public interface ApplicationInstance extends Identifiable {
 	 * @generated
 	 */
 	void setDbName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Args</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Args</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Args</em>' attribute.
+	 * @see #setArgs(String)
+	 * @see hu.bme.mit.inf.cps.CpsPackage#getApplicationInstance_Args()
+	 * @model
+	 * @generated
+	 */
+	String getArgs();
+
+	/**
+	 * Sets the value of the '{@link hu.bme.mit.inf.cps.ApplicationInstance#getArgs <em>Args</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Args</em>' attribute.
+	 * @see #getArgs()
+	 * @generated
+	 */
+	void setArgs(String value);
 
 } // ApplicationInstance

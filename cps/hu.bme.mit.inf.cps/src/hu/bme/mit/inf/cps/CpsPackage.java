@@ -479,13 +479,22 @@ public interface CpsPackage extends EPackage {
 	int APPLICATION_INSTANCE__DB_NAME = IDENTIFIABLE_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Args</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_INSTANCE__ARGS = IDENTIFIABLE_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Application Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_INSTANCE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 7;
+	int APPLICATION_INSTANCE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Application Instance</em>' class.
@@ -752,13 +761,22 @@ public interface CpsPackage extends EPackage {
 	int REQUIREMENT__COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Args</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUIREMENT__ARGS = IDENTIFIABLE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Requirement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REQUIREMENT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
+	int REQUIREMENT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Requirement</em>' class.
@@ -1117,6 +1135,17 @@ public interface CpsPackage extends EPackage {
 	EAttribute getApplicationInstance_DbName();
 
 	/**
+	 * Returns the meta object for the attribute '{@link hu.bme.mit.inf.cps.ApplicationInstance#getArgs <em>Args</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Args</em>'.
+	 * @see hu.bme.mit.inf.cps.ApplicationInstance#getArgs()
+	 * @see #getApplicationInstance()
+	 * @generated
+	 */
+	EAttribute getApplicationInstance_Args();
+
+	/**
 	 * Returns the meta object for class '{@link hu.bme.mit.inf.cps.HostInstance <em>Host Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1364,6 +1393,17 @@ public interface CpsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRequirement_Count();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hu.bme.mit.inf.cps.Requirement#getArgs <em>Args</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Args</em>'.
+	 * @see hu.bme.mit.inf.cps.Requirement#getArgs()
+	 * @see #getRequirement()
+	 * @generated
+	 */
+	EAttribute getRequirement_Args();
 
 	/**
 	 * Returns the meta object for enum '{@link hu.bme.mit.inf.cps.State <em>State</em>}'.
@@ -1657,6 +1697,14 @@ public interface CpsPackage extends EPackage {
 		EAttribute APPLICATION_INSTANCE__DB_NAME = eINSTANCE.getApplicationInstance_DbName();
 
 		/**
+		 * The meta object literal for the '<em><b>Args</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION_INSTANCE__ARGS = eINSTANCE.getApplicationInstance_Args();
+
+		/**
 		 * The meta object literal for the '{@link hu.bme.mit.inf.cps.impl.HostInstanceImpl <em>Host Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1847,6 +1895,14 @@ public interface CpsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REQUIREMENT__COUNT = eINSTANCE.getRequirement_Count();
+
+		/**
+		 * The meta object literal for the '<em><b>Args</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REQUIREMENT__ARGS = eINSTANCE.getRequirement_Args();
 
 		/**
 		 * The meta object literal for the '{@link hu.bme.mit.inf.cps.State <em>State</em>}' enum.
