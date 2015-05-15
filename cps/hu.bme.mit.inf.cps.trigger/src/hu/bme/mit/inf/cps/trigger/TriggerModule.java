@@ -18,7 +18,7 @@ import org.eclipse.viatra.cep.core.streams.EventStream;
 
 public class TriggerModule implements ITriggerModule {
 
-	public static final int sleepTime = 1000;
+	public static final int sleepTime = 10000;
 	private static boolean run = true;
 	private static Thread thread;
 	public static boolean enableInit = true;
@@ -133,7 +133,7 @@ public class TriggerModule implements ITriggerModule {
 		run = false;
 		while (thread.isAlive()) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

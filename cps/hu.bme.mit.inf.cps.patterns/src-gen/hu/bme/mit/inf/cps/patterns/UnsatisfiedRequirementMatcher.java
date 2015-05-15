@@ -28,7 +28,7 @@ import org.eclipse.incquery.runtime.util.IncQueryLoggingUtil;
  * <p>Original source:
  * <code><pre>
  * pattern unsatisfiedRequirement(req : Requirement) {
- * 	M == count find applicationsInRequirement(req, _);
+ * 	M == count find applicationInRequirement(req, _);
  * 	Requirement.^count(req, N);
  * 	M != N;
  * }

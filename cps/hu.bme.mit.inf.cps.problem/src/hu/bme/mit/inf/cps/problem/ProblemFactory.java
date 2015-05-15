@@ -90,9 +90,12 @@ public class ProblemFactory {
 				appInstance.setState(State.RUNNING);
 				appInstance.setType(mapAppType.get(fullId.split("-")[1]));
 				
-				String hostId = mapAllocation.get(appInstance.getId());
-				HostType hostType = mapHostType.get(hostId);
-				hostType.getInstances().get(0).getApplications().add(appInstance);
+				if(mapAllocation.containsKey(appInstance.getId())) {
+					String hostId = mapAllocation.get(appInstance.getId());
+					
+					HostType hostType = mapHostType.get(hostId);
+					hostType.getInstances().get(0).getApplications().add(appInstance);
+				}
 				
 				Request request = mapRequest.get(fullId.split("-")[0]);
 				for (Requirement req : request.getRequirements()) {
@@ -197,7 +200,6 @@ public class ProblemFactory {
 				requirement.setArgs(reqSql.args);
 				
 				Request request = reqMap.get(reqSql.req);
-				requirement.setId(request.getId());
 				requirement.setRequest(request);
 			}
 		}

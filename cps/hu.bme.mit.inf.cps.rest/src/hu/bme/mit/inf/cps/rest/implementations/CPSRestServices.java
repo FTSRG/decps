@@ -27,10 +27,9 @@ public class CPSRestServices implements ICPSRestServices {
 	@Override
 	@GET
 	@Path("/full")
-	@Produces("text/plain")
+	@Produces("application/javascript")
 	public String getFullDataModel(@QueryParam("callback")String callback) throws Exception {
 		Component component = Component.instance();
-		component.initializeProblem();
 		CyberPhysicalSystem cyberPhysicalSystem = component.getCyberPhysicalSystem();
 		JSONArray json = new JSONArray();
 		

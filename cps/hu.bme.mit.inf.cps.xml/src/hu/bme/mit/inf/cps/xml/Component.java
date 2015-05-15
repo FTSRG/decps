@@ -74,8 +74,11 @@ public class Component implements ICyberPhysicalExecutor {
 	static public boolean enableHttp = true;
 	
 	public static Component instance() {
-		if(instance == null)
+		if(instance == null) {
 			instance = new Component();
+			instance.initializeProblem();
+		}
+		
 			
 		return instance;
 	}
@@ -102,6 +105,8 @@ public class Component implements ICyberPhysicalExecutor {
 	private SolutionTrajectory getTrajectory() throws IncQueryException {
 		
 		Logger.getLogger(DesignSpaceManager.class).setLevel(Level.DEBUG);
+		Logger.getLogger(FixedPriorityStrategy.class).setLevel(Level.DEBUG);
+		Logger.getLogger(DesignSpaceExplorer.class).setLevel(Level.DEBUG);
 		
 		DesignSpaceExplorer dse = new DesignSpaceExplorer();
 		
@@ -157,6 +162,7 @@ public class Component implements ICyberPhysicalExecutor {
 	}
 
 	public void initializeProblem() {
+		System.out.println("reinit");
 		ProblemFactory problemFactory = new ProblemFactory();
 		setProblem(problemFactory.initialize());
 	}
@@ -189,7 +195,7 @@ public class Component implements ICyberPhysicalExecutor {
 						
 						if(enableHttp) {
 							sendPost(xml.toString());
-							rule.executeRdf(match);
+//							rule.executeRdf(match);
 						}
 						ret += xml.toString();
 					}
