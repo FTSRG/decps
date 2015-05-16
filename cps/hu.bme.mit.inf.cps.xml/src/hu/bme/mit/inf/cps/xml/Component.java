@@ -32,6 +32,7 @@ import hu.bme.mit.inf.cps.xml.provided.ICyberPhysicalExecutor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
@@ -194,8 +195,12 @@ public class Component implements ICyberPhysicalExecutor {
 						transformer.transform(new DOMSource(xmlOperation), new StreamResult(xml));
 						
 						if(enableHttp) {
+							System.out.println("sending to dispatcher");
 							sendPost(xml.toString());
-//							rule.executeRdf(match);
+							System.out.println(xml.toString());
+							System.out.println("executing on rdf");
+							rule.executeRdf(match);
+							System.out.println("execution done");
 						}
 						ret += xml.toString();
 					}
@@ -240,13 +245,34 @@ public class Component implements ICyberPhysicalExecutor {
  
 		// Send post request
 		con.getOutputStream().write(msg.getBytes("UTF8"));
-		String response = "";
-		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String strTemp = "";
-			while (null != (strTemp = br.readLine())) {
-				response += strTemp;
-		}
+		StringBuilder response = new StringBuilder();
 		
+		System.out.println("waiting for dispatcher response");
+		
+		InputStream _is;
+//		if(con.getResponseCode() > 400) {
+//			_is = con.getErrorStream();
+//		} else {
+			_is = con.getInputStream();
+//		}
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(_is));
+			char strTemp = 0;
+			do {
+				if(br.ready()) {
+					strTemp = (char) br.read();
+					response.append(strTemp);
+				}
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}while (strTemp != -1);
+		
+		System.out.println("dispatcher response");	
+			
 		if(!response.equals("<h1>OK!! :)</h1>"))
 			throw new BadResponseException();
 	}

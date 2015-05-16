@@ -87,17 +87,20 @@ public class ProblemFactory {
 				appInstance.setDbName(d.dbName);
 				appInstance.setDbPassword(d.password);
 				appInstance.setDbUser(d.username);
-				appInstance.setState(State.RUNNING);
 				appInstance.setType(mapAppType.get(fullId.split("-")[1]));
+				appInstance.setState(State.STOPPED);
 				
 				if(mapAllocation.containsKey(appInstance.getId())) {
 					String hostId = mapAllocation.get(appInstance.getId());
 					
 					HostType hostType = mapHostType.get(hostId);
 					hostType.getInstances().get(0).getApplications().add(appInstance);
+					appInstance.setState(State.RUNNING);
 				}
 				
 				Request request = mapRequest.get(fullId.split("-")[0]);
+				if(request == null) 
+					return;
 				for (Requirement req : request.getRequirements()) {
 					if(req.getType() == appInstance.getType())
 						appInstance.setArgs(req.getArgs());

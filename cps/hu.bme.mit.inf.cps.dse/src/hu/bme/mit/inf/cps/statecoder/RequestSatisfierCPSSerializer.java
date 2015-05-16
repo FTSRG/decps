@@ -54,7 +54,7 @@ public class RequestSatisfierCPSSerializer implements IStateSerializer {
 
 			for (HostInstance host : appInst.getInstances()) {
 				if (host.getApplications().isEmpty()) {
-					sb.append(host.getId() + ",");
+					sb.append(host.getId() + ":" + host.getNodeIp() + ",");
 				}
 			}
 		}
@@ -69,15 +69,15 @@ public class RequestSatisfierCPSSerializer implements IStateSerializer {
 		if (match instanceof AllocateMatch) {
 			AllocateMatch m = (AllocateMatch) match;
 			result = "Alloc:" + m.getAppInstance().getId() + ","
-					+ m.getHostInstance().getId();
+					+ m.getHostInstance().getId() + ":" + m.getHostInstance().getNodeIp();
 		} else if (match instanceof DeleteAllocationMatch) {
 			DeleteAllocationMatch m = (DeleteAllocationMatch) match;
 			result = "Del:" + m.getAppInstance().getId() + ","
-					+ m.getHostInstance().getId();
+					+ m.getHostInstance().getId() + ":" + m.getHostInstance().getNodeIp();
 		} else if (match instanceof MoveMatch) {
 			MoveMatch m = (MoveMatch) match;
 			result = "Move:" + m.getAppInstance().getId() + ","
-					+ m.getFrom().getId() + "," + m.getTo().getId();
+					+ m.getFrom().getId() + ":" + m.getFrom().getNodeIp() + "," + m.getTo().getId() + ":" + m.getTo().getNodeIp();
 		}
 
 		else if (match instanceof StartInstanceMatch) {
@@ -99,7 +99,7 @@ public class RequestSatisfierCPSSerializer implements IStateSerializer {
 		else if (match instanceof MaxAnyUsageMatch) {
 			MaxAnyUsageMatch m = (MaxAnyUsageMatch) match;
 			result = "MaxAnyUsage:" + m.getId() + ", " + m.getApp().getId()
-					+ ", " + m.getHost().getId();
+					+ ", " + m.getHost().getId() + ":" + m.getHost().getNodeIp();
 		} else {
 			throw new UnsupportedOperationException("The rule with "
 					+ match.patternName()
