@@ -175,6 +175,8 @@ public class Component implements ICyberPhysicalExecutor {
 		
 		try {
 			
+			System.out.println("next operation called");
+			
 			TransformerFactory tf = TransformerFactory.newInstance();
 			Transformer transformer = tf.newTransformer();
 			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
@@ -183,10 +185,14 @@ public class Component implements ICyberPhysicalExecutor {
 			
 			while (trajectory.getCurrentIndex() < trajectory.getTrajectoryLength()) {
 				
+				System.out.println("next op");
+				
 				IPatternMatch match = trajectory.doNextTransformation();
 				
 				TransformationRule<?> currentTransformation = trajectory.getTransformationRules().get(trajectory.getCurrentIndex()-1);
 				if(currentTransformation.getMatchProcessor() instanceof ICyberPhysicalSystemRule) {
+					
+					System.out.println("rule");
 					ICyberPhysicalSystemRule rule = (ICyberPhysicalSystemRule) currentTransformation.getMatchProcessor();
 					Document[] xmlOperations = rule.getXmlOperation(match);
 					
@@ -236,8 +242,8 @@ public class Component implements ICyberPhysicalExecutor {
 		con.setDoInput(true);
 		con.setDoOutput(true);
 		
-		con.setReadTimeout(30000);
-		con.setConnectTimeout(30000);
+		con.setReadTimeout(300000);
+		con.setConnectTimeout(300000);
 		
 		//add request header
 //		con.setRequestMethod("POST");
@@ -263,6 +269,8 @@ public class Component implements ICyberPhysicalExecutor {
 			throw new BadResponseException();
 		}
 		} catch (java.net.SocketTimeoutException e) {
+			System.out.println("Timeout :(");
+			System.out.println(msg);
 			throw new BadResponseException();
 		}
 	}
@@ -273,7 +281,7 @@ public class Component implements ICyberPhysicalExecutor {
 		String inputLine;
 		while ((inputLine = in.readLine()) != null)
 		inbuffer += (inputLine + "\n");
-		in.close();
+//		in.close();
 		return inbuffer;
 	}
 		

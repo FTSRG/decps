@@ -4,4 +4,5 @@ public class RequestRequirementSql {
 	public int count;
 	public int req;
 	public String args;
+	public int id;
 }

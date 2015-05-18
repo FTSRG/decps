@@ -27,6 +27,7 @@ public class SqlConnection {
 	private static final String RAM = "required_memory";
 	private static final String COUNT = "count";
 	private static final String ID = "id";
+	private static final String REQ = "req";
 	
 	private static final String DB_NAME = "db_name";
 	private static final String USERNAME = "user";
@@ -82,7 +83,8 @@ public class SqlConnection {
 		Collection<RequestRequirementSql> ret = new ArrayList<RequestRequirementSql>();
 		while(resultSet.next()) {
 			RequestRequirementSql requestSql = new RequestRequirementSql();
-			requestSql.req = resultSet.getInt(SqlConnection.ID);
+			requestSql.id = resultSet.getInt(SqlConnection.ID);
+			requestSql.req = resultSet.getInt(SqlConnection.REQ);
 			requestSql.count = (resultSet.getInt(SqlConnection.COUNT));
 			requestSql.args = resultSet.getString(SqlConnection.ARGS);
 			ret.add(requestSql);
