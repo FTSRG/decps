@@ -133,7 +133,7 @@ class IQGenerator {
 							newLine
 							append(
 								'''
-								builder.addLifeCycle(EventDrivenTransformationRuleFactory.INTERVAL_SEMANTICS);
+								builder.addLifeCycle(org.eclipse.incquery.runtime.evm.specific.Lifecycles.getDefault(true, false));
 								builder.precondition(''').append('''«it.referClass(typeRefBuilder, matcher, p)»''').
 								append(
 									'''.querySpecification());
