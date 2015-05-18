@@ -11,6 +11,7 @@ import hu.bme.mit.inf.cps.patterns.util.MaxAnyUsageQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.NotExistUnsatisfiedRequirementQuerySpecification;
 import hu.bme.mit.inf.cps.xml.Component;
 
+import org.apache.log4j.Logger;
 import org.eclipse.incquery.runtime.api.IncQueryMatcher;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.cep.core.api.engine.CEPEngine;
@@ -22,16 +23,17 @@ public class TriggerModule implements ITriggerModule {
 	private static boolean run = true;
 	private static Thread thread;
 	public static boolean enableInit = true;
+	private Logger logger;
 
 	public TriggerModule() {
-		start();
+		logger = Logger.getLogger(TriggerModule.class);
 	}
 
 	@Override
 	public void start() {
 
-		System.out.println("Ready to start");
-
+		logger.info("START command has arrived");
+		
 		run = true;
 		Runnable task = new Runnable() {
 			CEPEngine newEngine;
@@ -53,15 +55,9 @@ public class TriggerModule implements ITriggerModule {
 
 					try {
 						{// Complex Event Process
-							MaxAnyUsageMatcher matcher = MaxAnyUsageQuerySpecification
-									.instance().getMatcher(
-											component.getCyberPhysicalSystem());
-							for (MaxAnyUsageMatch match : matcher
-									.getAllMatches()) {
-								MaxAnyUsageAppeared_Event event = CepFactory
-										.getInstance()
-										.createMaxAnyUsageAppeared_Event(
-												null);
+							MaxAnyUsageMatcher matcher = MaxAnyUsageQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
+							for (MaxAnyUsageMatch match : matcher.getAllMatches()) {
+								MaxAnyUsageAppeared_Event event = CepFactory.getInstance().createMaxAnyUsageAppeared_Event(null);
 								// event.setApp(match.getApp());
 								// event.setHost(match.getHost());
 								event.setId(match.getId());
@@ -71,13 +67,11 @@ public class TriggerModule implements ITriggerModule {
 							}
 						}
 						{// Check Goal pattern
-							AllApplicationInstanceIsRunningMatcher matcher1 = AllApplicationInstanceIsRunningQuerySpecification
-									.instance().getMatcher(
-											component.getCyberPhysicalSystem());
-							NotExistUnsatisfiedRequirementMatcher matcher2 = NotExistUnsatisfiedRequirementQuerySpecification
-									.instance().getMatcher(
-											component.getCyberPhysicalSystem());
-							executeComponent(component, matcher1, matcher2);
+							AllApplicationInstanceIsRunningMatcher allAppsRunning = 
+									AllApplicationInstanceIsRunningQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
+							NotExistUnsatisfiedRequirementMatcher noUnsatisfied = 
+									NotExistUnsatisfiedRequirementQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
+							executeComponent(component, allAppsRunning, noUnsatisfied);
 						}
 
 					} catch (IncQueryException e1) {
@@ -96,17 +90,15 @@ public class TriggerModule implements ITriggerModule {
 					IncQueryMatcher<?> matcher1, IncQueryMatcher<?> matcher2) {
 				if (matcher1.getAllMatches().size() == 0
 						|| matcher2.getAllMatches().size() == 0) {
-					System.out.println("Execute");
-
+					
+					logger.info("Re-allocation is required as a goal pattern is not satisfied");
 					boolean success = component.calculateTrajectory();
-					System.out.println(success);
-
 					if (!success) {
-						System.out.println("No trajectory exists");
+						logger.info("\tBut there is no trajectory to satisfy goals");
 					} else {
 						while (component.hasNextOperation()) {
 							try {
-								System.out.println(component.nextOperation());
+								component.nextOperation();
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -119,8 +111,8 @@ public class TriggerModule implements ITriggerModule {
 		thread = new Thread(task);
 		thread.start();
 
-		System.out.println("started");
-
+		logger.info("Trigger module started");
+		
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
@@ -130,6 +122,7 @@ public class TriggerModule implements ITriggerModule {
 
 	@Override
 	public void stop() {
+		logger.info("STOP command has arrived");
 		run = false;
 		while (thread.isAlive()) {
 			try {
@@ -142,6 +135,7 @@ public class TriggerModule implements ITriggerModule {
 
 	@Override
 	public void restart() {
+		logger.info("RESTART command has arrived");
 		stop();
 		start();
 	}
