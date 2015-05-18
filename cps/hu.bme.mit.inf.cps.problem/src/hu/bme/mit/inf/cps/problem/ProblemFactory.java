@@ -176,7 +176,7 @@ public class ProblemFactory {
 
 			ApplicationType applicationType = CpsFactory.eINSTANCE.createApplicationType();
 			applicationType.setId(appTypesSql.name);
-			applicationType.setExeFileUrl(appTypesSql.exeFileType);
+			applicationType.setExeFileUrl(appTypesSql.exeFileUrl);
 			applicationType.setExeType(appTypesSql.exeFileType);
 			applicationType.setZipFile(appTypesSql.zipFileUrl);
 			

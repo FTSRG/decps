@@ -38,6 +38,7 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
+import java.util.concurrent.TimeoutException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -229,54 +230,53 @@ public class Component implements ICyberPhysicalExecutor {
 	}
 	
 	private void sendPost(String msg) throws IOException, BadResponseException {
- 
+		try{
 		URL obj = new URL(DISPATCHER_URL);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setDoInput(true);
 		con.setDoOutput(true);
 		
-		//add request header
-		con.setRequestMethod("POST");
-		con.setRequestProperty("User-Agent", USER_AGENT);
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		con.setReadTimeout(30000);
+		con.setConnectTimeout(30000);
 		
-		con.addRequestProperty("Content-Type", "application/" + "POST");
-		con.setRequestProperty("Content-Length", Integer.toString(msg.length()));
+		//add request header
+//		con.setRequestMethod("POST");
+//		con.setRequestProperty("User-Agent", USER_AGENT);
+//		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		
+		con.addRequestProperty("Content-Type", "application/xml");
+//		con.setRequestProperty("Content-Length", Integer.toString(msg.length()));
  
 		// Send post request
 		con.getOutputStream().write(msg.getBytes("UTF8"));
-		StringBuilder response = new StringBuilder();
+		String response = "";
 		
 		System.out.println("waiting for dispatcher response");
-		
-		InputStream _is;
-//		if(con.getResponseCode() > 400) {
-//			_is = con.getErrorStream();
-//		} else {
-			_is = con.getInputStream();
-//		}
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(_is));
-			char strTemp = 0;
-			do {
-				if(br.ready()) {
-					strTemp = (char) br.read();
-					response.append(strTemp);
-				}
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}while (strTemp != -1);
-		
+		response = readFromConnection(con);
 		System.out.println("dispatcher response");	
 			
-		if(!response.equals("<h1>OK!! :)</h1>"))
+		
+		
+		if(!response.trim().equals("<h1>OK!! :)</h1>")) {
+			System.out.println(msg);
+			System.out.println(response);
 			throw new BadResponseException();
+		}
+		} catch (java.net.SocketTimeoutException e) {
+			throw new BadResponseException();
+		}
 	}
 	
+	public String readFromConnection(HttpURLConnection http) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(http.getInputStream()));
+		String inbuffer = "";
+		String inputLine;
+		while ((inputLine = in.readLine()) != null)
+		inbuffer += (inputLine + "\n");
+		in.close();
+		return inbuffer;
+	}
+		
 	public CyberPhysicalSystem getCyberPhysicalSystem() {
 		return getProblem();
 	}
