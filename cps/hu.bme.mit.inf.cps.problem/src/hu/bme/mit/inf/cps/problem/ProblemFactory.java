@@ -204,6 +204,8 @@ public class ProblemFactory {
 				
 				Request request = reqMap.get(reqSql.req);
 				requirement.setRequest(request);
+				requirement.setId(request.getId());
+				
 			}
 		}
 	}

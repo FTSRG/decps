@@ -37,7 +37,7 @@ public class RequestSatisfierCPSSerializer implements IStateSerializer {
 		// Requirement -> apps -> hosts
 		for (Request request : model.getRequests()) {
 			for (Requirement requirement : request.getRequirements()) {
-				sb.append("{requirement-" + requirement.getType().getId() + ":");
+				sb.append("{requirement-" + requirement.getId() + ":");
 				for (ApplicationInstance app : requirement.getInstances()) {
 					sb.append(app.getId() + app.getState().name() + "(");
 					for (HostInstance host : app.getAllocatedTo()) {
@@ -90,7 +90,7 @@ public class RequestSatisfierCPSSerializer implements IStateSerializer {
 
 		else if (match instanceof CreateApplicationInstanceMatch) {
 			CreateApplicationInstanceMatch m = (CreateApplicationInstanceMatch) match;
-			result = "CreateApp:" + m.getReq().getType().getId();
+			result = "CreateApp:" + m.getReq().getId();
 		}
 		else if (match instanceof MaxAnyUsageMatch) {
 			MaxAnyUsageMatch m = (MaxAnyUsageMatch) match;
