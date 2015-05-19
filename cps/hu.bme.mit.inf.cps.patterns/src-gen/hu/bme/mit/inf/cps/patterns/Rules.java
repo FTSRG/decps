@@ -7,6 +7,7 @@ import hu.bme.mit.inf.cps.patterns.CreateApplicationInstanceMatcher;
 import hu.bme.mit.inf.cps.patterns.DeleteAllocationMatcher;
 import hu.bme.mit.inf.cps.patterns.MaxAnyUsageMatcher;
 import hu.bme.mit.inf.cps.patterns.MoveMatcher;
+import hu.bme.mit.inf.cps.patterns.NoMaxUsageMatcher;
 import hu.bme.mit.inf.cps.patterns.StartInstanceMatcher;
 import hu.bme.mit.inf.cps.patterns.StopInstanceMatcher;
 import hu.bme.mit.inf.cps.patterns.UnsatisfiedRequirementMatcher;
@@ -17,6 +18,7 @@ import hu.bme.mit.inf.cps.patterns.util.CreateApplicationInstanceQuerySpecificat
 import hu.bme.mit.inf.cps.patterns.util.DeleteAllocationQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.MaxAnyUsageQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.MoveQuerySpecification;
+import hu.bme.mit.inf.cps.patterns.util.NoMaxUsageQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.StartInstanceQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.StopInstanceQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.UnsatisfiedRequirementQuerySpecification;
@@ -47,6 +49,7 @@ import org.eclipse.incquery.runtime.exception.IncQueryException;
  * <li>maxCpuUsage</li>
  * <li>maxRamUsage</li>
  * <li>maxHddUsage</li>
+ * <li>noMaxUsage</li>
  * <li>maxAnyUsage</li>
  * </ul>
  * 
@@ -81,6 +84,7 @@ public final class Rules extends BaseGeneratedPatternGroup {
     querySpecifications.add(MoveQuerySpecification.instance());
     querySpecifications.add(CanAllocateToQuerySpecification.instance());
     querySpecifications.add(CancelRequestQuerySpecification.instance());
+    querySpecifications.add(NoMaxUsageQuerySpecification.instance());
     querySpecifications.add(MaxAnyUsageQuerySpecification.instance());
   }
   
@@ -154,6 +158,14 @@ public final class Rules extends BaseGeneratedPatternGroup {
   
   public CancelRequestMatcher getCancelRequest(final IncQueryEngine engine) throws IncQueryException {
     return CancelRequestMatcher.on(engine);
+  }
+  
+  public NoMaxUsageQuerySpecification getNoMaxUsage() throws IncQueryException {
+    return NoMaxUsageQuerySpecification.instance();
+  }
+  
+  public NoMaxUsageMatcher getNoMaxUsage(final IncQueryEngine engine) throws IncQueryException {
+    return NoMaxUsageMatcher.on(engine);
   }
   
   public MaxAnyUsageQuerySpecification getMaxAnyUsage() throws IncQueryException {

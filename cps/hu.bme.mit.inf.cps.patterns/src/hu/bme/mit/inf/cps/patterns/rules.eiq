@@ -112,6 +112,11 @@ private pattern maxHddUsage(id, host : HostInstance, app : ApplicationInstance) 
 	check(hdd < 1);
 }
 
+pattern noMaxUsage(x) {
+	x==1;
+	neg find maxAnyUsage(_,_,_);
+}
+
 pattern maxAnyUsage(id, host : HostInstance, app : ApplicationInstance) {
 	find maxCpuUsage(id,host,app);
 } or {

@@ -100,3 +100,5 @@
 /StartInstanceQuerySpecification.java
 /StopInstanceProcessor.java
 /StopInstanceQuerySpecification.java
+/.NoMaxUsageProcessor.java._trace
+/.NoMaxUsageQuerySpecification.java._trace

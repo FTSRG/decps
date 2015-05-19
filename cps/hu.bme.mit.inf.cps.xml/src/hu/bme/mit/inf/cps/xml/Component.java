@@ -13,11 +13,13 @@ import hu.bme.mit.inf.cps.patterns.MaxAnyUsageMatch;
 import hu.bme.mit.inf.cps.patterns.MaxAnyUsageMatcher;
 import hu.bme.mit.inf.cps.patterns.MoveMatch;
 import hu.bme.mit.inf.cps.patterns.MoveMatcher;
+import hu.bme.mit.inf.cps.patterns.NoMaxUsageMatcher;
 import hu.bme.mit.inf.cps.patterns.NotExistUnsatisfiedRequirementMatcher;
 import hu.bme.mit.inf.cps.patterns.StartInstanceMatch;
 import hu.bme.mit.inf.cps.patterns.StartInstanceMatcher;
 import hu.bme.mit.inf.cps.patterns.StopInstanceMatch;
 import hu.bme.mit.inf.cps.patterns.StopInstanceMatcher;
+import hu.bme.mit.inf.cps.patterns.util.NoMaxUsageQuerySpecification;
 import hu.bme.mit.inf.cps.problem.ProblemFactory;
 import hu.bme.mit.inf.cps.rules.AllocateRule;
 import hu.bme.mit.inf.cps.rules.CreateApplicationInstanceRule;
@@ -119,8 +121,8 @@ public class Component implements ICyberPhysicalExecutor {
 		dse.setSerializerFactory(new RequestSatisfierCPSSerializerFactory());
 		
 		TransformationRule<AllocateMatch> allocateRule = new TransformationRule<AllocateMatch>(AllocateMatcher.querySpecification(), new AllocateRule());
-		TransformationRule<DeleteAllocationMatch> deleteAllocRule = new TransformationRule<DeleteAllocationMatch>(DeleteAllocationMatcher.querySpecification(), new DeleteAllocationRule());
-		TransformationRule<MoveMatch> moveRule = new TransformationRule<MoveMatch>(MoveMatcher.querySpecification(), new MoveAllocationRule());
+//		TransformationRule<DeleteAllocationMatch> deleteAllocRule = new TransformationRule<DeleteAllocationMatch>(DeleteAllocationMatcher.querySpecification(), new DeleteAllocationRule());
+//		TransformationRule<MoveMatch> moveRule = new TransformationRule<MoveMatch>(MoveMatcher.querySpecification(), new MoveAllocationRule());
 		TransformationRule<MaxAnyUsageMatch> maxRule = new TransformationRule<MaxAnyUsageMatch>(MaxAnyUsageMatcher.querySpecification(), new MaxAnyUsageRule());
 		
 		TransformationRule<StartInstanceMatch> startRule = new TransformationRule<StartInstanceMatch>(StartInstanceMatcher.querySpecification(), new StartAppRule());
@@ -130,8 +132,8 @@ public class Component implements ICyberPhysicalExecutor {
 //		TransformationRule<CreateHostInstanceMatch> createHostRule = new TransformationRule<>(CreateHostInstanceMatcher.querySpecification(), new CreateHostInstanceRule());
 
 		dse.addTransformationRule(allocateRule);
-		dse.addTransformationRule(deleteAllocRule);
-		dse.addTransformationRule(moveRule);
+//		dse.addTransformationRule(deleteAllocRule);
+//		dse.addTransformationRule(moveRule);
 		dse.addTransformationRule(maxRule);
 		dse.addTransformationRule(startRule);
 		dse.addTransformationRule(stopRule);
@@ -140,6 +142,7 @@ public class Component implements ICyberPhysicalExecutor {
 		
 		dse.addObjective(new AllMustHaveMatchHardObjective().addConstraint(NotExistUnsatisfiedRequirementMatcher.querySpecification()));
 		dse.addObjective(new AllMustHaveMatchHardObjective().addConstraint(AllApplicationInstanceIsRunningMatcher.querySpecification()));
+		dse.addObjective(new AllMustHaveMatchHardObjective().addConstraint(NoMaxUsageMatcher.querySpecification()));
 		
 		dse.setMaxNumberOfThreads(1);
 		
@@ -147,8 +150,8 @@ public class Component implements ICyberPhysicalExecutor {
 		strategy.setDepthLimit(100);
 		
 		strategy.withRulePriority(allocateRule, 15);
-		strategy.withRulePriority(deleteAllocRule, 0);
-		strategy.withRulePriority(moveRule, 0);
+//		strategy.withRulePriority(deleteAllocRule, 0);
+//		strategy.withRulePriority(moveRule, 0);
 		strategy.withRulePriority(startRule, 20);
 		strategy.withRulePriority(stopRule, 0);
 		strategy.withRulePriority(maxRule, 25);
@@ -251,6 +254,7 @@ public class Component implements ICyberPhysicalExecutor {
 			String response = "";
 			
 			logger.info("waiting for dispatcher response");
+			logger.info(msg);
 			response = readFromConnection(con);
 			logger.info("dispatcher has arrived");
 			
