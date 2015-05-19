@@ -151,6 +151,6 @@ final class MaxCpuUsageQuerySpecification extends BaseGeneratedEMFQuerySpecifica
   }
   
   private static boolean evaluateExpression_1_1(final Integer cpu) {
-    return ((cpu).intValue() < 1);
+    return ((cpu).intValue() < 10);
   }
 }

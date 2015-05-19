@@ -62,7 +62,7 @@ public class StopAppRule extends StopInstanceProcessor implements ICyberPhysical
 			installCommand.appendChild(dbPwd);
 
 			commandType.setTextContent("false");
-			nodeIp.setTextContent(m.getAppInstance().getAllocatedTo().get(0).getNodeIp());
+			nodeIp.setTextContent(m.getAppInstance().getAllocatedTo().get(0).getNodeIp().split(":")[0]);
 			sshPort.setTextContent(m.getAppInstance().getAllocatedTo().get(0).getNodeIp().split(":")[1]);
 			appName.setTextContent(m.getAppInstance().getType().getId());
 			args.setTextContent(m.getAppInstance().getArgs());

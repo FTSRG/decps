@@ -78,10 +78,10 @@ public class Component implements ICyberPhysicalExecutor {
 	
 	public static Component instance() {
 		if(instance == null) {
-			instance = new Component();
-			instance.initializeProblem();
 			logger = Logger.getLogger(Component.class);
 			logger.setLevel(Level.INFO);
+			instance = new Component();
+			instance.initializeProblem();
 		}
 			
 		return instance;

@@ -11,6 +11,7 @@ import hu.bme.mit.inf.cps.patterns.util.MaxAnyUsageQuerySpecification;
 import hu.bme.mit.inf.cps.patterns.util.NotExistUnsatisfiedRequirementQuerySpecification;
 import hu.bme.mit.inf.cps.xml.Component;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.incquery.runtime.api.IncQueryMatcher;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
@@ -19,7 +20,7 @@ import org.eclipse.viatra.cep.core.streams.EventStream;
 
 public class TriggerModule implements ITriggerModule {
 
-	public static final int sleepTime = 10000;
+	public static final int sleepTime = 5000;
 	private static boolean run = true;
 	private static Thread thread;
 	public static boolean enableInit = true;
@@ -27,6 +28,7 @@ public class TriggerModule implements ITriggerModule {
 
 	public TriggerModule() {
 		logger = Logger.getLogger(TriggerModule.class);
+		logger.setLevel(Level.INFO);
 	}
 
 	@Override
@@ -62,7 +64,7 @@ public class TriggerModule implements ITriggerModule {
 								// event.setHost(match.getHost());
 								event.setId(match.getId());
 								event.setIncQueryPattern(match);
-
+								logger.info("Overload occurred");
 								eventStream.push(event);
 							}
 						}
@@ -111,13 +113,7 @@ public class TriggerModule implements ITriggerModule {
 		thread = new Thread(task);
 		thread.start();
 
-		logger.info("Trigger module started");
-		
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		logger.info("Trigger module started");		
 	}
 
 	@Override

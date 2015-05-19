@@ -95,7 +95,7 @@ private pattern maxCpuUsage(id, host : HostInstance, app : ApplicationInstance) 
 	HostInstance.id(host, id);
 	HostInstance.availableCpu(host, cpu);
 	ApplicationInstance.allocatedTo(app, host);
-	check(cpu < 1);
+	check(cpu < 10);
 }
 
 private pattern maxRamUsage(id, host : HostInstance, app : ApplicationInstance) {

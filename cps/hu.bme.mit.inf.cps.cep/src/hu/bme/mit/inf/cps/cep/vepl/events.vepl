@@ -2,6 +2,8 @@ package hu.bme.mit.inf.cps.cep.vepl
 
 import hu.bme.mit.inf.cps.*
 import hu.bme.mit.inf.cps.xml.*
+import org.apache.log4j.*
+import hu.bme.mit.inf.cps.trigger.*
 import-queries hu.bme.mit.inf.cps.patterns.*
 
 QueryResultChangeEvent maxAnyUsageAppeared(id: String){
@@ -10,30 +12,27 @@ QueryResultChangeEvent maxAnyUsageAppeared(id: String){
 }
 
 ComplexEvent maxAnyUsageAppeared1000TimesIn3SecWithSameId(id: String){
-	definition: (maxAnyUsageAppeared(id) -> maxAnyUsageAppeared(id){2})[6000]
+	definition: (maxAnyUsageAppeared(id) -> maxAnyUsageAppeared(id){2})[16000]
 }
 
 Rule startDse{
 	events: maxAnyUsageAppeared1000TimesIn3SecWithSameId
 	action{
-		System.out.println("CEP happened")
+		var logger = Logger::getLogger(class)
+		logger.setLevel(Level.INFO)
+
+		logger.info("CEP happened")
 
 		var component = Component.instance 
 		var success = component.calculateTrajectory 
 
-		System.out.println(success)
-
 		if(!success) {
-			System.out.println("No trajectory exists")
+			logger.info("No trajectory found")
 			return
 		}
 
 		while (component.hasNextOperation) {
-			try {
-				System.out.println(component.nextOperation)
-			} catch (Exception e) {
-				e.printStackTrace
-			}
+			component.nextOperation
 		}
 		
 	}
