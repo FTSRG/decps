@@ -73,6 +73,7 @@ public class Component implements ICyberPhysicalExecutor {
 	static private CyberPhysicalSystem problem;
 	static private SolutionTrajectory trajectory;
 	private final String USER_AGENT = "Mozilla/5.0";
+	public static boolean dseWorking;
 	static private final String DISPATCHER_URL = "http://localhost:8080/Dispatcher/Dispatcher";
 	static private Component instance;
 	static public boolean enableHttp = true;

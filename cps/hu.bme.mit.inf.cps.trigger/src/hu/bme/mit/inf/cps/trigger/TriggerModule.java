@@ -50,36 +50,37 @@ public class TriggerModule implements ITriggerModule {
 			public void run() {
 
 				while (run) {
-
-					Component component = Component.instance();
-					if (enableInit)
-						component.initializeProblem();
-
-					try {
-						{// Complex Event Process
-							MaxAnyUsageMatcher matcher = MaxAnyUsageQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
-							for (MaxAnyUsageMatch match : matcher.getAllMatches()) {
-								MaxAnyUsageAppeared_Event event = CepFactory.getInstance().createMaxAnyUsageAppeared_Event(null);
-								// event.setApp(match.getApp());
-								// event.setHost(match.getHost());
-								event.setId(match.getId());
-								event.setIncQueryPattern(match);
-								logger.info("Overload occurred");
-								eventStream.push(event);
+					
+					if(!Component.dseWorking) {
+						Component component = Component.instance();
+						if (enableInit)
+							component.initializeProblem();
+	
+						try {
+							{// Complex Event Process
+								MaxAnyUsageMatcher matcher = MaxAnyUsageQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
+								for (MaxAnyUsageMatch match : matcher.getAllMatches()) {
+									MaxAnyUsageAppeared_Event event = CepFactory.getInstance().createMaxAnyUsageAppeared_Event(null);
+									// event.setApp(match.getApp());
+									// event.setHost(match.getHost());
+									event.setId(match.getId());
+									event.setIncQueryPattern(match);
+									logger.info("Overload occurred");
+									eventStream.push(event);
+								}
 							}
+							{// Check Goal pattern
+								AllApplicationInstanceIsRunningMatcher allAppsRunning = 
+										AllApplicationInstanceIsRunningQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
+								NotExistUnsatisfiedRequirementMatcher noUnsatisfied = 
+										NotExistUnsatisfiedRequirementQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
+								executeComponent(component, allAppsRunning, noUnsatisfied);
+							}
+	
+						} catch (IncQueryException e1) {
+							e1.printStackTrace();
 						}
-						{// Check Goal pattern
-							AllApplicationInstanceIsRunningMatcher allAppsRunning = 
-									AllApplicationInstanceIsRunningQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
-							NotExistUnsatisfiedRequirementMatcher noUnsatisfied = 
-									NotExistUnsatisfiedRequirementQuerySpecification.instance().getMatcher(component.getCyberPhysicalSystem());
-							executeComponent(component, allAppsRunning, noUnsatisfied);
-						}
-
-					} catch (IncQueryException e1) {
-						e1.printStackTrace();
 					}
-
 					try {
 						Thread.sleep(sleepTime);
 					} catch (InterruptedException e) {
@@ -94,6 +95,8 @@ public class TriggerModule implements ITriggerModule {
 						|| matcher2.getAllMatches().size() == 0) {
 					
 					logger.info("Re-allocation is required as a goal pattern is not satisfied");
+					Component.dseWorking = true;
+					
 					boolean success = component.calculateTrajectory();
 					if (!success) {
 						logger.info("\tBut there is no trajectory to satisfy goals");
@@ -106,6 +109,7 @@ public class TriggerModule implements ITriggerModule {
 							}
 						}
 					}
+					Component.dseWorking = false;
 				}
 			}
 		};
