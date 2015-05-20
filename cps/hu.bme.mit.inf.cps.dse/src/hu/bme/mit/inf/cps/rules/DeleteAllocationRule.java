@@ -29,42 +29,44 @@ public class DeleteAllocationRule extends DeleteAllocationProcessor implements I
 	@Override
 	public Document[] getXmlOperation(IPatternMatch match) throws ParserConfigurationException {
 		
-		if (!(match instanceof DeleteAllocationMatch)) {
-			throw new IllegalArgumentException();
-		}
-
-		DeleteAllocationMatch m = (DeleteAllocationMatch) match;
-
-		try {
-			
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder;
-			dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.newDocument();
-
-			Element installCommand = doc.createElement("InstallCommand");
-			Element commandType = doc.createElement("commandType");
-			Element nodeIp = doc.createElement("nodeIp");
-			Element appName = doc.createElement("appName");
-			Element zipUrl = doc.createElement("zipUrl");
-
-			doc.appendChild(installCommand);
-			installCommand.appendChild(commandType);
-			installCommand.appendChild(nodeIp);
-			installCommand.appendChild(appName);
-			installCommand.appendChild(zipUrl);
-
-			commandType.setTextContent("false");
-			nodeIp.setTextContent(m.getHostInstance().getNodeIp());
-			appName.setTextContent(m.getAppInstance().getType().getId());
-			zipUrl.setTextContent(m.getAppInstance().getType().getZipFile());
-
-			return new Document[] {doc};
-			
-		} catch (ParserConfigurationException e) {
-		}
-
-		return null;
+		return new Document[] {null};
+		
+//		if (!(match instanceof DeleteAllocationMatch)) {
+//			throw new IllegalArgumentException();
+//		}
+//
+//		DeleteAllocationMatch m = (DeleteAllocationMatch) match;
+//
+//		try {
+//			
+//			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//			DocumentBuilder dBuilder;
+//			dBuilder = dbFactory.newDocumentBuilder();
+//			Document doc = dBuilder.newDocument();
+//
+//			Element installCommand = doc.createElement("InstallCommand");
+//			Element commandType = doc.createElement("commandType");
+//			Element nodeIp = doc.createElement("nodeIp");
+//			Element appName = doc.createElement("appName");
+//			Element zipUrl = doc.createElement("zipUrl");
+//
+//			doc.appendChild(installCommand);
+//			installCommand.appendChild(commandType);
+//			installCommand.appendChild(nodeIp);
+//			installCommand.appendChild(appName);
+//			installCommand.appendChild(zipUrl);
+//
+//			commandType.setTextContent("false");
+//			nodeIp.setTextContent(m.getHostInstance().getNodeIp());
+//			appName.setTextContent(m.getAppInstance().getType().getId());
+//			zipUrl.setTextContent(m.getAppInstance().getType().getZipFile());
+//
+//			return new Document[] {doc};
+//			
+//		} catch (ParserConfigurationException e) {
+//		}
+//
+//		return null;
 	}
 
 	@Override

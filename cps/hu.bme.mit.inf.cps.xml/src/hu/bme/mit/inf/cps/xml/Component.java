@@ -202,11 +202,16 @@ public class Component implements ICyberPhysicalExecutor {
 					
 					String ret = "";
 					for(Document xmlOperation : xmlOperations) {
+						
 						StringWriter xml = new StringWriter();
-						transformer.transform(new DOMSource(xmlOperation), new StreamResult(xml));
+						if(xmlOperation != null) {
+							transformer.transform(new DOMSource(xmlOperation), new StreamResult(xml));
+						}
 						
 						if(enableHttp) {
-							sendPost(xml.toString());
+							if(xmlOperation != null) {
+								sendPost(xml.toString());
+							}
 							rule.executeRdf(match);
 						}
 						ret += xml.toString();

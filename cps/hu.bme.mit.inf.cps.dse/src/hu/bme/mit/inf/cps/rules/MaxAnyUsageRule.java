@@ -134,7 +134,6 @@ public class MaxAnyUsageRule extends MaxAnyUsageProcessor implements ICyberPhysi
 	public void executeRdf(IPatternMatch match) throws Exception {
 		RdfConnection connection = new RdfConnection();
 		MaxAnyUsageMatch m = (MaxAnyUsageMatch) match;
-		
 		connection.stopAppOnDevice(m.getApp().getId());
 	
 	}

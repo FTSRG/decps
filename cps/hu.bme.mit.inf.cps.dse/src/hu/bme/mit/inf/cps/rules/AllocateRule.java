@@ -30,45 +30,47 @@ public class AllocateRule extends AllocateProcessor implements ICyberPhysicalSys
 	@Override
 	public Document[] getXmlOperation(IPatternMatch match) {
 
-		if (!(match instanceof AllocateMatch)) {
-			throw new IllegalArgumentException();
-		}
-
-		AllocateMatch m = (AllocateMatch) match;
-
-		try {
-			
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder;
-			dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.newDocument();
-
-			Element installCommand = doc.createElement("InstallCommand");
-			Element commandType = doc.createElement("commandType");
-			Element nodeIp = doc.createElement("nodeIp");
-			Element sshPort = doc.createElement("sshPort");
-			Element appName = doc.createElement("appName");
-			Element zipUrl = doc.createElement("zipUrl");
-
-			doc.appendChild(installCommand);
-			installCommand.appendChild(commandType);
-			installCommand.appendChild(nodeIp);
-			installCommand.appendChild(sshPort);
-			installCommand.appendChild(appName);
-			installCommand.appendChild(zipUrl);
-
-			commandType.setTextContent("true");
-			nodeIp.setTextContent(m.getHostInstance().getNodeIp().split(":")[0]);
-			sshPort.setTextContent(m.getHostInstance().getNodeIp().split(":")[1]);
-			appName.setTextContent(m.getAppInstance().getType().getId());
-			zipUrl.setTextContent(m.getAppInstance().getType().getZipFile());
-
-			return new Document[] {doc};
-			
-		} catch (ParserConfigurationException e) {
-		}
-
-		return null;
+		return new Document[] { null };
+		
+//		if (!(match instanceof AllocateMatch)) {
+//			throw new IllegalArgumentException();
+//		}
+//
+//		AllocateMatch m = (AllocateMatch) match;
+//
+//		try {
+//			
+//			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//			DocumentBuilder dBuilder;
+//			dBuilder = dbFactory.newDocumentBuilder();
+//			Document doc = dBuilder.newDocument();
+//
+//			Element installCommand = doc.createElement("InstallCommand");
+//			Element commandType = doc.createElement("commandType");
+//			Element nodeIp = doc.createElement("nodeIp");
+//			Element sshPort = doc.createElement("sshPort");
+//			Element appName = doc.createElement("appName");
+//			Element zipUrl = doc.createElement("zipUrl");
+//
+//			doc.appendChild(installCommand);
+//			installCommand.appendChild(commandType);
+//			installCommand.appendChild(nodeIp);
+//			installCommand.appendChild(sshPort);
+//			installCommand.appendChild(appName);
+//			installCommand.appendChild(zipUrl);
+//
+//			commandType.setTextContent("true");
+//			nodeIp.setTextContent(m.getHostInstance().getNodeIp().split(":")[0]);
+//			sshPort.setTextContent(m.getHostInstance().getNodeIp().split(":")[1]);
+//			appName.setTextContent(m.getAppInstance().getType().getId());
+//			zipUrl.setTextContent(m.getAppInstance().getType().getZipFile());
+//
+//			return new Document[] {doc};
+//			
+//		} catch (ParserConfigurationException e) {
+//		}
+//
+//		return null;
 	}
 
 	@Override
